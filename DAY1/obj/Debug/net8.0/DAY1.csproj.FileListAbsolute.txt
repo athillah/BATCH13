@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\DAY1\bin\Debug\net8.0\DAY1.exe
+C:\Athillah\BATCH13\DAY1\bin\Debug\net8.0\DAY1.deps.json
+C:\Athillah\BATCH13\DAY1\bin\Debug\net8.0\DAY1.runtimeconfig.json
+C:\Athillah\BATCH13\DAY1\bin\Debug\net8.0\DAY1.dll
+C:\Athillah\BATCH13\DAY1\bin\Debug\net8.0\DAY1.pdb
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.AssemblyInfo.cs
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.sourcelink.json
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.dll
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\refint\DAY1.dll
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.pdb
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\DAY1.genruntimeconfig.cache
+C:\Athillah\BATCH13\DAY1\obj\Debug\net8.0\ref\DAY1.dll
