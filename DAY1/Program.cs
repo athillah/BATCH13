@@ -18,12 +18,12 @@ namespace LogicExerciseDay1
         {
             Console.WriteLine("Pick a number:");
             int n = 15;
-            //int n = Convert.ToInt32(Console.Read());
-            //Console.WriteLine("N: " + n);
+            /*int n = Convert.ToInt32(Console.Read());
+            Console.WriteLine("N: " + n); */
             string output = "";
             for (int i=1; i<n+1; i++)
             {
-                //Console.WriteLine("COunting " + i);
+                /*Console.WriteLine("COunting " + i);*/
                 if (i%3==0)
                 {
                     output += "foo";
