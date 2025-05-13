@@ -10,7 +10,7 @@ Here's a sample output of such program with n=15
 
 using System;
 
-namespace LogicExercise
+namespace LogicExerciseDay1
 {
     class Program
     {
@@ -18,10 +18,11 @@ namespace LogicExercise
         {
             Console.WriteLine("Pick a number:");
             int n = 15;
+            //int n = Convert.ToInt32(Console.Read());
+            //Console.WriteLine("N: " + n);
             string output = "";
             for (int i=1; i<n+1; i++)
             {
-                Console.WriteLine("COunting " + i);
                 if (i%3==0)
                 {
                     output += "foo";
@@ -38,6 +39,7 @@ namespace LogicExercise
                 {
                     output += ", ";
                 }
+                //Console.WriteLine("Counting " + i);
             }
             Console.WriteLine(output);
         }
