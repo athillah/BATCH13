@@ -1,4 +1,4 @@
-﻿/* Write a simple console program that prints the number from 1 to n, for each number x:
+/* Write a simple console program that prints the number from 1 to n, for each number x:
 
 print "foo", if x is divisible by 3
 print "bar", if x is divisible by 5
@@ -18,11 +18,20 @@ namespace LogicExerciseDay1
         {
             Console.WriteLine("Pick a number:");
             int n = 15;
+<<<<<<< HEAD
             //int n = Convert.ToInt32(Console.Read());
             //Console.WriteLine("N: " + n);
             string output = "";
             for (int i=1; i<n+1; i++)
             {
+=======
+            /*int n = Convert.ToInt32(Console.Read());
+            Console.WriteLine("N: " + n); */
+            string output = "";
+            for (int i=1; i<n+1; i++)
+            {
+                /*Console.WriteLine("COunting " + i);*/
+>>>>>>> d1485b1e9f3d95f0bce06a0255ad6b09b32ded20
                 if (i%3==0)
                 {
                     output += "foo";
