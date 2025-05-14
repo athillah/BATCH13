@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day2\bonbin\bin\Debug\net8.0\bonbin.exe
+C:\Athillah\BATCH13\Day2\bonbin\bin\Debug\net8.0\bonbin.deps.json
+C:\Athillah\BATCH13\Day2\bonbin\bin\Debug\net8.0\bonbin.runtimeconfig.json
+C:\Athillah\BATCH13\Day2\bonbin\bin\Debug\net8.0\bonbin.dll
+C:\Athillah\BATCH13\Day2\bonbin\bin\Debug\net8.0\bonbin.pdb
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.sourcelink.json
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.dll
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\refint\bonbin.dll
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.pdb
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\bonbin.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day2\bonbin\obj\Debug\net8.0\ref\bonbin.dll
