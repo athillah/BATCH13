@@ -1,0 +1,22 @@
+@model FilmMVC.Models.Film
+
+<h2>Add a New Film</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>Title:</label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Director:</label>
+        <input asp-for="Director" />
+        <span asp-validation-for="Director" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Year:</label>
+        <input asp-for="Year" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+    <button type="submit">Add Film</button>
+</form>
