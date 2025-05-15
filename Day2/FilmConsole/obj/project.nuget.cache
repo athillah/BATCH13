@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ZstxTOo7SU0=",
+  "dgSpecHash": "JefmP2DxaeA=",
   "success": true,
-  "projectFilePath": "c:\\Athillah\\BATCH13\\Day2\\FilmConsole\\FilmConsole.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Athillah\\BATCH13\\Day2\\FilmConsole\\FilmConsole.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SE-86\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.13\\microsoft.net.illink.tasks.8.0.13.nupkg.sha512",
+    "C:\\Users\\SE-86\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.13\\microsoft.netcore.app.runtime.win-x64.8.0.13.nupkg.sha512",
+    "C:\\Users\\SE-86\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.13\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.13.nupkg.sha512",
+    "C:\\Users\\SE-86\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.13\\microsoft.aspnetcore.app.runtime.win-x64.8.0.13.nupkg.sha512"
+  ],
   "logs": []
 }

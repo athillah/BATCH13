@@ -1,0 +1,2 @@
+C:\Athillah\BATCH13\Day2\FilmConsole\bin\Release\net8.0\win-x64\publish\FilmConsole.pdb
+C:\Athillah\BATCH13\Day2\FilmConsole\bin\Release\net8.0\win-x64\publish\FilmConsole.exe

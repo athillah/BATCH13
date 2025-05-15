@@ -8,12 +8,16 @@ public interface ICard {
 }
 
 public interface IHand {
-    List<ICard> Cards { get; }
-    string RandomizeRank();
-    string RandomizeSuit();
     void ShowHand();
 }
 
+public interface IDrawer {
+    List<ICard> Cards { get; }
+}
+
+public interface IRandomizer {
+    string Randomize();
+}
 
 public class Card : ICard {
     public string Rank { get; private set; }
@@ -26,13 +30,31 @@ public class Card : ICard {
 }
 
 public class Hand : IHand {
-    public List<ICard> Cards { get; private set; }
-    List<ICard> IHand.Cards => Cards;
+    List<ICard> Cards = new List<ICard>();
 
     public Hand() {
-        Cards = DrawCards();
+        List<ICard> Cards = CardDrawer().DrawCards();
     }
-    public string RandomizeRank () {
+    public void ShowHand() {
+        foreach (var card in Cards) {
+            WriteLine(card);
+        }
+    }
+}
+
+public class CardDrawer : IDrawer {
+    List<ICard> Cards { get; }
+    public static List<ICard> DrawCards() {
+        List<ICard> cards = new List<ICard>();
+        for (int i = 0; i < 5; i++) {
+            cards.Add(new Card(RankRandomizer.Randomize(), SuitRandomizer.Randomize()));
+        }
+        return cards;
+    }
+}
+
+public class RankRandomizer : IRandomizer {
+    public static string Randomize () {
         Random rng = new Random();
         int randomRank = rng.Next(14);
         if (randomRank == 0) {
@@ -46,7 +68,10 @@ public class Hand : IHand {
         }
         return randomRank.ToString();
     }
-    public string RandomizeSuit () {
+}
+
+public class SuitRandomizer : IRandomizer {
+    public static string Randomize () {
         Random rng = new Random();
         int randomSuit = rng.Next(4);
         switch (randomSuit) {
@@ -59,18 +84,6 @@ public class Hand : IHand {
             case 3:
                 return "Diamond";
         } return "0";
-    }
-    public List<ICard> DrawCards() {
-        List<ICard> cards = new List<ICard>();
-        for (int i = 0; i < 5; i++) {
-            cards.Add(new Card(RandomizeRank(), RandomizeSuit()));
-        }
-        return cards;
-    }
-    public void ShowHand() {
-        foreach (var card in Cards) {
-            WriteLine(card);
-        }
     }
 }
 
