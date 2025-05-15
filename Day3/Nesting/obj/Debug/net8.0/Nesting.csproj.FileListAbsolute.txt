@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.sourcelink.json
+C:\Athillah\BATCH13\Day3\Nesting\bin\Debug\net8.0\Nesting.exe
+C:\Athillah\BATCH13\Day3\Nesting\bin\Debug\net8.0\Nesting.deps.json
+C:\Athillah\BATCH13\Day3\Nesting\bin\Debug\net8.0\Nesting.runtimeconfig.json
+C:\Athillah\BATCH13\Day3\Nesting\bin\Debug\net8.0\Nesting.dll
+C:\Athillah\BATCH13\Day3\Nesting\bin\Debug\net8.0\Nesting.pdb
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.dll
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\refint\Nesting.dll
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.pdb
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\Nesting.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day3\Nesting\obj\Debug\net8.0\ref\Nesting.dll
