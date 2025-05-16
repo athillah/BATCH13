@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Film";
+}
+@model List<Film>
+
+<div class="text-center">
+    <h1 class="display-4">Kino List</h1>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Director</th>
+                <th>Year</th>
+                <th>Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var film in Model)
+                {
+                    <tr>
+                        <td>@film.Title</td>
+                        <td>@film.Director</td>
+                        <td>@film.Year</td>
+                        <td>@film.Rate</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
