@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("bonbin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7b405b0d1389dc563b907bfc8aed39c7de834ac")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d496e174d6e0ccc7f807ada71c26b26c9fab7bf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("bonbin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("bonbin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

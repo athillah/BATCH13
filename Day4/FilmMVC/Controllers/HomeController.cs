@@ -22,12 +22,29 @@ public class HomeController : Controller {
         return View(films);
     }
     
-    public IActionResult CreateEdit() {
+    public IActionResult CreateEdit(int? id) {
+        if (id != null) {
+            var aFilm = _context.Films.SingleOrDefault(film => film.Id == id);
+            return View(aFilm);
+        }
         return View();
     }
+    public IActionResult Delete(int id) {
+        var aFilm = _context.Films.SingleOrDefault(film => film.Id == id);
+        if (aFilm == null) {
+            return NotFound();
+        }
+        _context.Films.Remove(aFilm);
+        _context.SaveChanges();
+        return RedirectToAction("Film");
+    }
     
-    public IActionResult SubmitForm (Film model) {
-        _context.Films.Add(model);
+    public IActionResult SubmitForm(Film model) {
+        if (model.Id == 0) {
+            _context.Films.Add(model);
+        } else {
+            _context.Films.Update(model);
+        }
         _context.SaveChanges();
         return RedirectToAction("Index");
     }
