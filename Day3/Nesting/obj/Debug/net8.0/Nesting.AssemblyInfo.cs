@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nesting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d496e174d6e0ccc7f807ada71c26b26c9fab7bf0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfb9dffef1f70635be9126be40648702e14d7f39")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nesting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nesting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

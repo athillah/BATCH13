@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day4\TestCase\bin\Debug\net8.0\TestCase.exe
+C:\Athillah\BATCH13\Day4\TestCase\bin\Debug\net8.0\TestCase.deps.json
+C:\Athillah\BATCH13\Day4\TestCase\bin\Debug\net8.0\TestCase.runtimeconfig.json
+C:\Athillah\BATCH13\Day4\TestCase\bin\Debug\net8.0\TestCase.dll
+C:\Athillah\BATCH13\Day4\TestCase\bin\Debug\net8.0\TestCase.pdb
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.sourcelink.json
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.dll
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\refint\TestCase.dll
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.pdb
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\TestCase.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day4\TestCase\obj\Debug\net8.0\ref\TestCase.dll
