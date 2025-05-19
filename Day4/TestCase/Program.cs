@@ -25,7 +25,7 @@ public class Indexer {
 
 //Inheritance
 public class Robot {
-    public string Name;
+    public string? Name;
 }
 
 public class Humanoid : Robot {
@@ -80,7 +80,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        /*
         //overload
         WriteLine("Overload");
         Print p1 = new Print(1);
@@ -152,10 +151,12 @@ public class Program
         WriteLine($"obj1.Equals(obj2): {obj1.Equals(obj2)}");
         WriteLine($"obj1.GetHashCode(): {obj1.GetHashCode()}");
         WriteLine($"obj2.GetHashCode(): {obj2.GetHashCode()}");
-        */
 
         Clothe clothe = new Clothe("T-shirt", 100);
         WriteLine($"Clothe: {clothe.Name}, Price: {clothe.GetPrice()}, Discounted Price: {clothe.ApplyDiscount(0.25)}");
+        
+
+
     }
 
     public static void Display(Robot robot)

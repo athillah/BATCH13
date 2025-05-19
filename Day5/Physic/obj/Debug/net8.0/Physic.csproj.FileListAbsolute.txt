@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day5\Physic\bin\Debug\net8.0\Physic.exe
+C:\Athillah\BATCH13\Day5\Physic\bin\Debug\net8.0\Physic.deps.json
+C:\Athillah\BATCH13\Day5\Physic\bin\Debug\net8.0\Physic.runtimeconfig.json
+C:\Athillah\BATCH13\Day5\Physic\bin\Debug\net8.0\Physic.dll
+C:\Athillah\BATCH13\Day5\Physic\bin\Debug\net8.0\Physic.pdb
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.sourcelink.json
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.dll
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\refint\Physic.dll
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.pdb
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\Physic.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day5\Physic\obj\Debug\net8.0\ref\Physic.dll
