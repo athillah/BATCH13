@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day5\Mixer\bin\Debug\net8.0\Mixer.exe
+C:\Athillah\BATCH13\Day5\Mixer\bin\Debug\net8.0\Mixer.deps.json
+C:\Athillah\BATCH13\Day5\Mixer\bin\Debug\net8.0\Mixer.runtimeconfig.json
+C:\Athillah\BATCH13\Day5\Mixer\bin\Debug\net8.0\Mixer.dll
+C:\Athillah\BATCH13\Day5\Mixer\bin\Debug\net8.0\Mixer.pdb
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.sourcelink.json
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.dll
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\refint\Mixer.dll
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.pdb
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\Mixer.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day5\Mixer\obj\Debug\net8.0\ref\Mixer.dll
