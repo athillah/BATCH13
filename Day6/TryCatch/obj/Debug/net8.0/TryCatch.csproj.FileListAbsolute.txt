@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.sourcelink.json
+C:\Athillah\BATCH13\Day6\TryCatch\bin\Debug\net8.0\TryCatch.exe
+C:\Athillah\BATCH13\Day6\TryCatch\bin\Debug\net8.0\TryCatch.deps.json
+C:\Athillah\BATCH13\Day6\TryCatch\bin\Debug\net8.0\TryCatch.runtimeconfig.json
+C:\Athillah\BATCH13\Day6\TryCatch\bin\Debug\net8.0\TryCatch.dll
+C:\Athillah\BATCH13\Day6\TryCatch\bin\Debug\net8.0\TryCatch.pdb
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.dll
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\refint\TryCatch.dll
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.pdb
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\TryCatch.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day6\TryCatch\obj\Debug\net8.0\ref\TryCatch.dll
