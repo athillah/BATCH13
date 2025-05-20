@@ -28,34 +28,30 @@ public interface IAlarm
 {
     string Tag { get; set; }
     string AlarmOff { get; set; }
-    event EventHandler<SafetyOffEventArgs> SafetyOff;
-    void OnSafetyOff(object sender, SafetyOffEventArgs e);
+    void OnSafetyOff(object? sender, SafetyOffEventArgs? e);
 }
-
 public class Alarm : IAlarm
 {
     public string Tag { get; set; }
     public string AlarmOff { get; set; }
-    public event EventHandler<SafetyOffEventArgs> SafetyOff;
     public Alarm(string tag)
     {
         Tag = tag;
         AlarmOff = "WIUWIUWIWUWIWUIWUIWUIWUIWUIWUIWUWIWUIWU";
     }
 
-    public void OnSafetyOff(object sender, SafetyOffEventArgs e)
+    public void OnSafetyOff(object? sender, SafetyOffEventArgs? e)
     {
         WriteLine(AlarmOff);
     }
 }
-
 public class SmokeSensor : ISensor
 {
     public string Tag { get; set; }
     public string Warning { get; set; }
     public int Data { get; set; }
     public DateTime TimeOff { get; set; }
-    public event EventHandler<SafetyOffEventArgs> SafetyOff;
+    public event EventHandler<SafetyOffEventArgs>? SafetyOff;
 
     public SmokeSensor(string tag)
     {
@@ -85,7 +81,7 @@ public class SmokeSensor : ISensor
 
 public class SafetyMainStream
 {
-    public event EventHandler<SafetyOffEventArgs> SafetyOff;
+    public event EventHandler<SafetyOffEventArgs>? SafetyOff;
     public void CoupleSensor(List<ISensor> sensors)
     {
         foreach (ISensor sensor in sensors)
@@ -110,10 +106,13 @@ public class SafetyMainStream
         }
     }
 
-    public void OnSafetyOff(object sender, SafetyOffEventArgs e)
+    public void OnSafetyOff(object? sender, SafetyOffEventArgs? e)
     {
-        WriteLine($"\n\n[ALERT] {e.TimeOff} | {e.Warning}\n");
-        SafetyOff?.Invoke(sender, e);
+        if (e != null)
+        {
+            WriteLine($"\n\n[ALERT] {e.TimeOff} | {e.Warning}\n");
+            SafetyOff?.Invoke(sender, e);
+        }
     }
 }
 
