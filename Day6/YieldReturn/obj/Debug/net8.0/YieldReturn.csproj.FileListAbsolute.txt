@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day6\YieldReturn\bin\Debug\net8.0\YieldReturn.exe
+C:\Athillah\BATCH13\Day6\YieldReturn\bin\Debug\net8.0\YieldReturn.deps.json
+C:\Athillah\BATCH13\Day6\YieldReturn\bin\Debug\net8.0\YieldReturn.runtimeconfig.json
+C:\Athillah\BATCH13\Day6\YieldReturn\bin\Debug\net8.0\YieldReturn.dll
+C:\Athillah\BATCH13\Day6\YieldReturn\bin\Debug\net8.0\YieldReturn.pdb
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.sourcelink.json
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.dll
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\refint\YieldReturn.dll
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.pdb
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\YieldReturn.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day6\YieldReturn\obj\Debug\net8.0\ref\YieldReturn.dll
