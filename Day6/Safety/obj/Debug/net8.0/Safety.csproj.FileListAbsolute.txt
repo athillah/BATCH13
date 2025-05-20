@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day6\Safety\bin\Debug\net8.0\Safety.exe
+C:\Athillah\BATCH13\Day6\Safety\bin\Debug\net8.0\Safety.deps.json
+C:\Athillah\BATCH13\Day6\Safety\bin\Debug\net8.0\Safety.runtimeconfig.json
+C:\Athillah\BATCH13\Day6\Safety\bin\Debug\net8.0\Safety.dll
+C:\Athillah\BATCH13\Day6\Safety\bin\Debug\net8.0\Safety.pdb
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.sourcelink.json
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.dll
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\refint\Safety.dll
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.pdb
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\Safety.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day6\Safety\obj\Debug\net8.0\ref\Safety.dll
