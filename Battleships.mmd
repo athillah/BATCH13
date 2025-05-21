@@ -1,0 +1,96 @@
+classDiagram
+
+class Game {
+    +bool Turn
+    +List<.Player> Players
+    +Start()
+    +InitializePlayer() : void
+    +InitializeShipPosition() : void
+    +Play() : void
+    +TakeTurn() : bool
+    +IsWin() : bool
+}
+Game -- Player
+
+class Player {
+    +bool PlayerId
+    +Board Board
+    +Player(bool playerId) : void
+    +GetBoard() : void
+    +Attack(int x, int y) : void
+    +RecieveAttack() : void
+}
+Player -- Board
+
+class Board {
+    +bool BoardId
+    +List<.Tile, Tile> Grid
+    +Fleet Fleet
+    +Board(int size, bool boardId) : void
+    +GetFleet() : Fleet
+    +SetBoard() : void
+    +RotateShip() : Direction
+    +PlaceShip(Ship ship, Direction direction)
+    +Display() : void
+}
+Board -- Direction
+Board -- Tile
+Board -- Fleet
+
+
+class Tile {
+    +Coordinates Coordinate
+    +bool HasShip
+    +bool IsHit
+    +bool Visibility
+    +GetVisibility() : void
+    +GetDisplay() : void
+}
+
+class Direction {
+    <<Enumeration>>
+    AxisX
+    AxisY
+}
+
+class Fleet {
+    +List<.Ship> Ships
+    +Fleet() : void
+    +int UnsunkShip
+    +CheckUnsunkShips() : bool
+}
+Fleet -- Ship
+
+class Ship {
+    +ShipType ShipType
+    +int Length
+    +int Hits
+    +Coordinates Coordinate
+    +Ship(ShipType shipType)
+    +GetLength()
+    +OnHit(int index)
+    +IsSunk() : bool
+}
+Ship -- ShipType
+Ship -- Condition
+
+class ShipType {
+    <<Enumeration>>
+    Battleship = 5
+    Cruiser = 4
+    Frigate = 3
+    Corvette = 2
+}
+
+class Condition {
+    <<Enumeration>>
+    Unsunk
+    Sunk
+}
+
+Tile -- Coordinates
+Ship -- Coordinates
+class Coordinates {
+    +int X
+    +int Y
+}
