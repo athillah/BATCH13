@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\bin\Debug\net8.0\2ndLogicExercise.exe
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\bin\Debug\net8.0\2ndLogicExercise.deps.json
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\bin\Debug\net8.0\2ndLogicExercise.runtimeconfig.json
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\bin\Debug\net8.0\2ndLogicExercise.dll
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\bin\Debug\net8.0\2ndLogicExercise.pdb
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.sourcelink.json
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.dll
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\refint\2ndLogicExercise.dll
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.pdb
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\2ndLogicExercise.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day7\2ndLogicExercise\obj\Debug\net8.0\ref\2ndLogicExercise.dll

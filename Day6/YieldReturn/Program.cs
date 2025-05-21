@@ -3,6 +3,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using static System.Console;
 
+// Belum ada implementasi yield return
+
 public enum Axis { A, B, C, D, E, F, G, H }
 
 public interface IPointOfInterest
@@ -73,14 +75,15 @@ class Program
 {
     static void Main()
     {
+        const int c = 8;
         Player PlayerA = new Player("A");
         Player PlayerB = new Player("B");
-        Mapper MapperA = new Mapper(8, 8);
+        Mapper MapperA = new Mapper(c, c);
 
         var points = new List<IPointOfInterest> { PlayerA, PlayerB };
 
         MapperA.Map(points);
-        for (int i = 0; i <= 8; i++)
+        for (int i = 0; i <= c; i++)
         {
             Thread.Sleep(5000);
             Clear();
