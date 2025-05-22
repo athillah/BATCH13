@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day8\LogicReturne\bin\Debug\net8.0\LogicReturne.exe
+C:\Athillah\BATCH13\Day8\LogicReturne\bin\Debug\net8.0\LogicReturne.deps.json
+C:\Athillah\BATCH13\Day8\LogicReturne\bin\Debug\net8.0\LogicReturne.runtimeconfig.json
+C:\Athillah\BATCH13\Day8\LogicReturne\bin\Debug\net8.0\LogicReturne.dll
+C:\Athillah\BATCH13\Day8\LogicReturne\bin\Debug\net8.0\LogicReturne.pdb
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.sourcelink.json
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.dll
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\refint\LogicReturne.dll
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.pdb
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\LogicReturne.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day8\LogicReturne\obj\Debug\net8.0\ref\LogicReturne.dll

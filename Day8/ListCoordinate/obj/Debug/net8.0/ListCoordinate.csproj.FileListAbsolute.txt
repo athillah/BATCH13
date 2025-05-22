@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day8\ListCoordinate\bin\Debug\net8.0\ListCoordinate.exe
+C:\Athillah\BATCH13\Day8\ListCoordinate\bin\Debug\net8.0\ListCoordinate.deps.json
+C:\Athillah\BATCH13\Day8\ListCoordinate\bin\Debug\net8.0\ListCoordinate.runtimeconfig.json
+C:\Athillah\BATCH13\Day8\ListCoordinate\bin\Debug\net8.0\ListCoordinate.dll
+C:\Athillah\BATCH13\Day8\ListCoordinate\bin\Debug\net8.0\ListCoordinate.pdb
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.sourcelink.json
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.dll
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\refint\ListCoordinate.dll
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.pdb
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ListCoordinate.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day8\ListCoordinate\obj\Debug\net8.0\ref\ListCoordinate.dll

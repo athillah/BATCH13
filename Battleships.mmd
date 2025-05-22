@@ -1,96 +1,152 @@
 classDiagram
 
-class Game {
-    +bool Turn
+direction LR
+
+IShip --* Fleet
+IShip --> Coordinate
+IShip -- Orientation : Uses
+IShip -- Ammunition : Has
+
+Fleet <|-- ShipShop
+Fleet --* GameController
+
+Orientation -- GameController
+Ammunition -- GameController
+
+ShipShop -- GameController
+Board -- TileDisplay : Displays
+Board -- TileDetail : Contains
+
+Coordinate <-- Board
+
+GameController *-- Board
+GameController *-- Player
+
+Battleship ..|> IShip
+Cruiser ..|> IShip
+Frigate ..|> IShip
+Corvette ..|> IShip
+
+class GameController {
     +List<.Player> Players
-    +Start()
-    +InitializePlayer() : void
-    +InitializeShipPosition() : void
-    +Play() : void
-    +TakeTurn() : bool
-    +IsWin() : bool
+    +Dictionary<.Player, Board> PlayerBoard
+    +Dictionary<.Player, Fleet> PlayerFleet
+    +bool Turn
+
+    +Action<.Player>? OnHit
+
+    +GameController(Player player1, Player player2)
+
+    +Shop(Player player, ShipShop shop) : void
+    +BuyShip(Player player, IShip ship) : void
+
+    +SetBoard(Player player, Board board) : void
+    +Rotate(Orientation orientation) : Orientation
+    +PlaceShips(Player player, IShip ship, int x, int y, Orientation orientation = Orientation.Horizontal) : void
+    +IsValidPlacement() : bool
+
+    +Start() : void
+    +TakeTurn(bool Turn, Player player1, Player player2) : bool
+
+    +Attack(Player player, int x, int y) : void
+    +IsAttackAvailable(Player player, Ammunition ammunition) : bool
+    +DidTileHitBefore(Board board, int x, int y) : bool
+    +DetailingAttack(Player player, Ammunition ammunition, int x, int y, Orientation orientation = Orientation.Horizontal) : void
+    +ReceiveAttack(Player player, int x, int y) : void
+
+    +NotifyOnHit(Player player, int x, int y) : void
+
+    +DisplayBoard(Player player, bool turn)
+    +DisplayFleet(Player player)
 }
-Game -- Player
+
+class ShipShop {
+    +List<.IShip> ShipOnSale
+    +Shop(List<.IShip> shipOnSale)
+}
 
 class Player {
-    +bool PlayerId
-    +Board Board
-    +Player(bool playerId) : void
-    +GetBoard() : void
-    +Attack(int x, int y) : void
-    +RecieveAttack() : void
+    +bool Turn
+    +int Money
+    +string Name
+    +Player(bool turn, string name)
 }
-Player -- Board
 
 class Board {
-    +bool BoardId
-    +List<.Tile, Tile> Grid
-    +Fleet Fleet
-    +Board(int size, bool boardId) : void
-    +GetFleet() : Fleet
-    +SetBoard() : void
-    +RotateShip() : Direction
-    +PlaceShip(Ship ship, Direction direction)
-    +Display() : void
-}
-Board -- Direction
-Board -- Tile
-Board -- Fleet
-
-
-class Tile {
-    +Coordinates Coordinate
-    +bool HasShip
-    +bool IsHit
+    +int Id
     +bool Visibility
-    +GetVisibility() : void
-    +GetDisplay() : void
+    +int BoardSize
+    +List<.Coordinate, TileDetail, TileDisplay> BoardTiles
+
+    +Board(int id, int BoardSize)
+    +TurnVisibility(bool GameTurn, Player TurnId) : bool
+    +ShowBoard() : void
+
+    +OnHit(int x, int y) : void
 }
 
-class Direction {
+class TileDisplay {
     <<Enumeration>>
-    AxisX
-    AxisY
+    WhiteSpace
+    Hit
+    Miss
+    Ship
+    SunkenShip
+}
+
+class TileDetail {
+    <<Enumeration>>
+    HasShip
+    NoShip
+}
+class Orientation {
+    <<Enumeration>>
+    Horizontal
+    Vertical
+}
+
+class Ammunition {
+    <<Enumeration>>
+    [Flags]
+    Single1x1Shot = 1
+    Single3x1Shot = 3
+    Single2x2Shot = 4
+    Double1x1Shot = 2
+}
+
+class Coordinate {
+    <<Struct>>
+    +int AxisX
+    +int AxisY
 }
 
 class Fleet {
-    +List<.Ship> Ships
-    +Fleet() : void
-    +int UnsunkShip
-    +CheckUnsunkShips() : bool
+    +List<.IShip> PlayerFleet
+    +Fleet(List<.Ship> ships)
+    +AnyShipLeft() : bool
 }
-Fleet -- Ship
 
-class Ship {
-    +ShipType ShipType
+
+class IShip {
+    <<interface>>
+    +int Price
     +int Length
-    +int Hits
-    +Coordinates Coordinate
-    +Ship(ShipType shipType)
-    +GetLength()
-    +OnHit(int index)
-    +IsSunk() : bool
-}
-Ship -- ShipType
-Ship -- Condition
+    +int HitCount
+    +bool Sunken
+    +bool IsPlaced
+    +bool HasAttack
+    +Ammunition Pattern
+    +int AmmunitionCooldown
+    +List<.Coordinate> ShipCoordinate
 
-class ShipType {
-    <<Enumeration>>
-    Battleship = 5
-    Cruiser = 4
-    Frigate = 3
-    Corvette = 2
+    +SetCoordinate(int x, int y, Orientation orientation) : List<.Coordinate>
+    +IsCooldown() : bool
+    +IsSunk() : void
+
+    +OnHit(int x, int y) : void
 }
 
-class Condition {
-    <<Enumeration>>
-    Unsunk
-    Sunk
-}
-
-Tile -- Coordinates
-Ship -- Coordinates
-class Coordinates {
-    +int X
-    +int Y
-}
+class Battleship {+BattleShip(int length, int price, Ammunition pattern)}
+class Cruiser {+Cruiser(int length, int price, Ammunition pattern)}
+class Frigate {+Frigate(int length, int price, Ammunition pattern)}
+class Corvette {+Corvette(int length, int price, Ammunition pattern)}

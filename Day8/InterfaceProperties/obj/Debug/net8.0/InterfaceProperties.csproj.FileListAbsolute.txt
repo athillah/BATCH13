@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day8\InterfaceProperties\bin\Debug\net8.0\InterfaceProperties.exe
+C:\Athillah\BATCH13\Day8\InterfaceProperties\bin\Debug\net8.0\InterfaceProperties.deps.json
+C:\Athillah\BATCH13\Day8\InterfaceProperties\bin\Debug\net8.0\InterfaceProperties.runtimeconfig.json
+C:\Athillah\BATCH13\Day8\InterfaceProperties\bin\Debug\net8.0\InterfaceProperties.dll
+C:\Athillah\BATCH13\Day8\InterfaceProperties\bin\Debug\net8.0\InterfaceProperties.pdb
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.sourcelink.json
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.dll
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\refint\InterfaceProperties.dll
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.pdb
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\InterfaceProperties.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day8\InterfaceProperties\obj\Debug\net8.0\ref\InterfaceProperties.dll
