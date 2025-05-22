@@ -12,8 +12,10 @@ GameController --> Coordinate : Contains
 
 Coordinate <-- IBoard : Contains
 
-IBoard --> TileDisplay : Contains
-IBoard --> TileDetail : Contains
+IBoard --> Tile : Uses
+
+Tile --> TileDisplay : Contains
+Tile --> TileDetail : Contains
 
 IPlayer <|.. Player : Implements
 IBoard <|.. Board : Implements
@@ -31,7 +33,7 @@ class GameController {
 
     +GameController(IPlayer player1, IPlayer player2)
 
-    +SetShips(IPlayer player, IShip ships) : void
+    +SetShips(IPlayer player, List<IShip> ships) : void
     +SetBoard(IPlayer player) : bool
     +RotateShip(bool orientation) : bool
     +PlaceShips(IPlayer player, int x, int y, bool orientation) : void
@@ -48,7 +50,7 @@ class GameController {
     +IsOutOfShips(IPlayer player) : bool
 
     +NotifyOnHit(bool turn, int x, int y) : void
-    +NotifyOnSunk(bool turn, IShip ship)
+    +NotifyOnSunk(bool turn, IShip ship) : void
     +NotifyOnTurnChange() : void
 
     +DisplayBoard(IBoard board) : void
@@ -70,22 +72,30 @@ class Player {
 
 class IBoard {
     <<Interface>>
-    +int BoardSize
+    -int _size
     +bool Visibility
-    +List<.Coordinate, TileDetail, TileDisplay> BoardTiles
+    +Dictionary<.Coordinate, Tile> Tiles
 
-    +OnHit(bool visibility, int x, int y)
+    +OnHit(bool visibility, int x, int y) : void
     +OnTurnChange() : void
     +OnSunk(bool visibility, IShip ship) : void
 }
 
 class Board {
-    +int BoardSize : readonly
+    -int _size : readonly
     +bool Visibility
-    +List<.Coordinate, TileDetail, TileDisplay> BoardTiles
+    +Dictionary<.Coordinate, Tile> Tiles
 
-    +Board(int id, int BoardSize)
+    +Board(bool visibility, int size)
+    
+    +OnHit(bool visibility, int x, int y) : void
     +OnTurnChange() : void
+    +OnSunk(bool visibility, IShip ship) : void
+}
+
+class Tile {
+    +TileDetail TileDetail
+    +TileDisplay TileDisplay
 }
 
 class TileDisplay {
@@ -120,8 +130,6 @@ class IShip {
     +SetCoordinate(int x, int y, bool orientation) : void
     +GetCoordinate() : List<.Coordinate>
     +IsSunk() : bool
-
-    +OnHit(int x, int y) : void
 }
 
 class Ship {
@@ -135,6 +143,4 @@ class Ship {
     +SetCoordinate(int x, int y, bool orientation) : void
     +GetCoordinate() : List<.Coordinate>
     +IsSunk() : bool
-
-    +OnHit(int x, int y) : void
 }
