@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day10\Action\bin\Debug\net8.0\Action.exe
+C:\Athillah\BATCH13\Day10\Action\bin\Debug\net8.0\Action.deps.json
+C:\Athillah\BATCH13\Day10\Action\bin\Debug\net8.0\Action.runtimeconfig.json
+C:\Athillah\BATCH13\Day10\Action\bin\Debug\net8.0\Action.dll
+C:\Athillah\BATCH13\Day10\Action\bin\Debug\net8.0\Action.pdb
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.sourcelink.json
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.dll
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\refint\Action.dll
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.pdb
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\Action.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day10\Action\obj\Debug\net8.0\ref\Action.dll

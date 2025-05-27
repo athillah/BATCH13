@@ -1,0 +1,126 @@
+---
+config:
+  layout: elk
+---
+classDiagram
+class IPlayer{
+    <<interface>>
+    +string name
+    +int score
+    +int handValue
+    +int GetHandValue() : int
+}
+class Player{
+    +string name
+    +int score
+    +int handValue
+    +Player(string name, ICard card)
+    +int GetHandValue() : int
+}
+class ICard{
+    <<interface>>
+    +int id
+    +int rightFaceValue
+    +int leftFaceValue 
+    +IsDouble() : bool
+    +GetValue() : int
+}
+class IDeck{
+    <<interface>>
+    -bool emptyDeck
+    +isEmpty() : bool
+}
+class IBoard{
+    <<interface>>
+    +UpdateBoard(Card card, Side side) : void
+    +GetBoard() : List~Card~
+}
+class Deck{
+    -bool emptyDeck
+    -List~ICard~ cards
+    +isEmpty() : bool
+}
+class Board{
+    -List~ICard~ playedCards
+    +UpdateBoard(ICard card, Side side) : void
+    +GetBoard() : List~ICard~
+}
+class Card{
+    +int id
+    +int rightFaceValue
+    +int leftFaceValue   
+    +Card(int id, int rightFaceValue, int leftFaceValue) 
+    +IsDouble() : bool
+    +GetValue() : int
+}
+class Side{
+    <<enumeration>>
+    LEFT
+    RIGHT
+}
+class GameController{
+    -IDeck deck
+    -IBoard board
+    -List~IPlayer~ players
+    -Dictionary<.IPlayer, List~Card~> hand
+    -Dictionary~int id, CardPlacement~ moveOptions
+    -IPlayer currentPlayer
+    -int playerCount
+    -int maxPlayers
+    -int winScore
+    -Action OnGameStart
+    -Action~IPlayer~ OnPlayerTurn
+    -Action~bool~ OnGameOver
+    +Side placementSide
+    +bool isFlipped
+    +int connectingValue
+    +bool canPlace
+    +Side allowedSide
+    +bool needsFlip
+    +int leftEndValue
+    +int rightEndValue
+    +GameController(List~IPlayer~ players, IDeck Deck, IBoard Board)
+    +SetupPlayers(int playerCount) : void
+    +AssignPlayerNames() : void
+    +StartGame(Action OnGameStart)
+    +SetHandCard(IPlayer): void
+    +GetHandCard(IPlayer): ICard card 
+    +TurnOrder() : void
+    +DetermineFirstPlayer() : IPlayer
+    +GetLeftEndValue() : int
+    +GetRightEndValue() : int
+    +UpdateEndValues() : void
+    +CanPlaceCard(ICard card) : bool
+    +CanConnect(int value) : bool
+    +GetConnectingValue(Side side) : int
+    +CreatePlacementInfo(bool canPlace, Side side, bool needsFlip) : PlacementInfo
+    +FlipCard(ICard card) : void
+    +GetPlayableMoves(IPlayer player) : Dictionary~int id, CardPlacement~
+    +CreateCardPlacement(ICard card, Side side, bool flipped, int value) : CardPlacement
+    +ExecuteMove(int option, Side placementSide) : bool
+    +PlaceCardOnBoard(ICard card, Side side) : void
+    +NextTurn(Action~IPlayer~ OnPlayerTurn)
+    +PassTurn() : void
+    +ShowBoard() : void
+    +ShowHand(IPlayer Player): void 
+    +CalculateScore(IPlayer player) : int
+    +SetScore(IPlayer player) : void
+    +GetScore(IPlayer player) : int
+    +GetWinner() : IPlayer
+    +CheckGameOver() : bool
+    +CreateCard(int id, int right, int left) : ICard
+    +GenerateStandardDeck() : void
+    +Shuffle() : void
+    +DrawCard() : ICard
+}
+IPlayer --o GameController 
+IDeck --o GameController
+GameController o-- IBoard
+Deck --|> IDeck 
+Board --|> IBoard 
+Player --|> IPlayer 
+Deck o-- ICard
+Board --o ICard
+ICard <|.. Card 
+GameController ..> Side
+Board ..> Side

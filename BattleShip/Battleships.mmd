@@ -1,0 +1,133 @@
+classDiagram
+direction BT
+
+Ship ..|> IShip : Implements
+Ship --> Orientation : Contains
+Ship --> Coordinate : Contains
+IShip "1..*" <-- GameController : Uses
+
+Coordinate <-- GameController : Uses
+Orientation <-- GameController : Uses
+Player ..|> IPlayer : Implements
+
+GameController --> "2" IPlayer : Manages
+GameController --> "2" IBoard : Manages
+
+Board ..|> IBoard: Implements
+Tile "1..*" --o "1" Board
+
+IDisplay ..|> Display : Implements
+
+class GameController {
+    -List~IPlayer~ _players
+    -Dictionary~IPlayer, IBoard~ _playerBoard
+    -Dictionary~IPlayer, List<.IShip>~ _playerShips
+    -IPlayer _currentPlayer
+    -IPlayer _otherPlayer
+    -bool _runGame
+
+    +Action OnInitializing~IPlayer~
+    +Action OnHit~IPlayer player, IShip ship~
+    +Action OnChangingTurn~List~IPlayer~~
+    +Action OnEndingGame
+
+    +GameController(List~IPlayer~ players)
+    %% Initialization
+    +Setup() : void
+    +SetBoard(IPlayer player, IBoard board) : bool
+    +SetShips(IPlayer player, List~IShip~ ships) : bool
+    +Initialize(IPlayer player) : void
+    +RotateShip(Orientation orientation) : Orientation
+    +PlaceShip(IShip ship, Coordinate coordinate) : bool
+    %% Setter Getter
+    +GetTile(IPlayer player, Coordinate coordinate) : Tile
+    +SetTile(IPlayer player, Coordinate coordinate, Tile tile) : void
+    +GetShip(IPlayer player, Coordinate coordinate) : IShip
+    +SetHitShip(IShip ship) : void
+    +GetCurrentPlayer() : IPlayer
+    +GetOtherPlayer() : IPlayer
+    %% Game Flow
+    +Start() : void
+    +LaunchHit(IPlayer player) : void
+    +Hit(IPlayer player, Coordinate coordinate) : void
+    +RegisterHit(IPlayer player, Coordinate coordinate) : void
+    %% Checks
+    +IsValidPlacement(IPlayer player, Coordinate coordinate) : bool
+    +IsValidHit(IPlayer player, Coordinate coordinate) : bool
+    +IsHit(IPlayer player, Coordinate coordinate) : bool
+    +IsSunk(IShip ship) : bool
+    +IsFleetDestroyed(List~IShip~ fleet) : bool
+    %% Other Action
+    +ChangeTurn(List~IPlayer~ players) : void
+    +EndGame() : void
+}
+
+class IDisplay {
+    <<Interface>>
+    +ShowMenu()
+    +ShowMessage(string message)
+    +ShowBoard(IBoard board)
+    +ShowFleet(List~IShip~ ships)
+}
+
+class Display {
+    +ShowMenu() : void
+    +ShowMessage(string message) : void
+    +ShowTile(Tile tile) : void
+    +ShowFleet(List~IShip~ ships) : void
+}
+
+class IPlayer {
+    <<Interface>>
+    +string Name
+}
+
+class Player {
+    +string Name : readonly
+    +Player(string name)
+}
+class IBoard {
+    <<Interface>>
+    +int Size
+    +TileType[,] Tiles
+}
+class Board {
+    +int Size : readonly
+    +TileType[,] Tiles
+    +Board(int size)
+}
+class Orientation {
+    <<Enumeration>>
+    Horizontal
+    Vertical
+}
+class IShip {
+    <<Interface>>
+    +string Type
+    +int Length
+    +int HitCount
+    +Orientation Orientation
+    +List~Coordinate~ Coordinates
+}
+class Ship {
+    +string Type
+    +int Length
+    +int HitCount
+    +Orientation Orientation
+    +List~Coordinate~ Coordinates
+    +Ship(int length, Orientation orientation, string Type)
+}
+class Tile {
+    <<Enumeration>>
+    Empty
+    Hit
+    Miss
+    Ship
+    SunkenShip
+}
+class Coordinate {
+    <<Struct>>
+    +int AxisX
+    +int AxisY
+    +Coordinate(int x, int y)
+}
