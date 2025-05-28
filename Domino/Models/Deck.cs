@@ -6,8 +6,9 @@ public class Deck : IDeck
     public List<ICard> Cards { get; set; }
     public Deck()
     {
-        Cards = new List<ICard>();
+        Cards= new List<ICard>();
     }
+    //
     public bool IsEmpty()
     {
         return _emptyDeck;

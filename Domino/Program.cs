@@ -3,22 +3,22 @@ using Domino.Interfaces;
 using Domino.Models;
 using Domino.Enumerations;
 using System;
+using Microsoft.VisualBasic;
 
-class Program
+internal class Program
 {
-    static void Main()
+    private static void Main()
     {
-        List<IPlayer> players = new List<IPlayer>()
-        {
+        var originalBackground = Console.BackgroundColor;
+        var originalForeground = Console.ForegroundColor;
+        List<IPlayer> players =
+        [
             new Player("Alice", null),
             new Player("Bob", null)
-        };
-
+        ];
         IDeck deck = new Deck();
         IBoard board = new Board();
-        GameController control = new GameController(players, deck, board);
-        control.GenerateStandardDeck();
-        control.Shuffle();
-        Console.Write(Side.LEFT);
+        GameController controller = new GameController(players, deck, board);
+        controller.StartGame();
     }
 }

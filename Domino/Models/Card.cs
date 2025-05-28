@@ -15,8 +15,8 @@ public class Card : ICard
     {
         return RightFaceValue == LeftFaceValue;
     }
-    public int GetValue()
+    public IEnumerable<int> GetValue()
     {
-        return 10;
+        return new[] { LeftFaceValue, RightFaceValue };
     }
 }

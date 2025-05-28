@@ -2,9 +2,9 @@ namespace Domino.Interfaces;
 
 public interface IPlayer
 {
-    public string Name { get; set; }
-    public int Score { get; set; }
-    public int HandValue { get; set; }
+    string Name { get; set; }
+    int Score { get; set; }
+    int HandValue { get; set; }
 
-    public int GetHandValue();
+    int GetHandValue();
 }

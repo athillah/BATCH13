@@ -2,9 +2,9 @@ namespace Domino.Interfaces;
 
 public interface ICard
 {
-    public int Id { get; set; }
-    public int RightFaceValue { get; set; }
-    public int LeftFaceValue { get; set; }
-    public bool IsDouble();
-    public int GetValue();
+    int Id { get; set; }
+    int RightFaceValue { get; set; }
+    int LeftFaceValue { get; set; }
+    bool IsDouble();
+    IEnumerable<int> GetValue();
 }
