@@ -89,7 +89,6 @@ public class GameController
         while (!CheckGameOver())
         {
             ShowMessage();
-            Thread.Sleep(500);
             if (_currentPlayer != null)
             {
                 OnPlayerTurn?.Invoke(_currentPlayer);
@@ -110,7 +109,7 @@ public class GameController
         {
             ShowBoard(_currentPlayer);
         }
-        OnGameOver();
+        OnGameOver?.Invoke();
         Console.WriteLine($"\nGame Over! The Winner is {GetWinner().Name} with a score of {GetWinner().Score}.");
     }
     public void SetHandCard(IPlayer player)
@@ -395,7 +394,6 @@ public class GameController
             }
         }
         Console.WriteLine("\n+-------------------------+");
-        Thread.Sleep(250);
     }
     public void CalculateScores()
     {
@@ -468,7 +466,7 @@ public class GameController
     }
     public void GenerateStandardDeck()
     {
-        Console.Write("Creating deck");
+        Console.Write("Generating deck");
         for (int i = 0; i <= 6; i++)
         {
             for (int j = 0; j <= i; j++)
