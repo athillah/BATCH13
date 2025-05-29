@@ -9,12 +9,10 @@ internal class Program
 {
     private static void Main()
     {
-        var originalBackground = Console.BackgroundColor;
-        var originalForeground = Console.ForegroundColor;
         List<IPlayer> players =
         [
             new Player("Alice", null),
-            new Player("Bob", null)
+            new Player("Bob", null),
         ];
         IDeck deck = new Deck();
         IBoard board = new Board();
