@@ -5,7 +5,7 @@ public class Player : IPlayer
     public string Name { get; set; }
     public int Score { get; set; }
     public int HandValue { get; set; }
-    public Player(string name, ICard card)
+    public Player(string name)
     {
         Name = name;
     }

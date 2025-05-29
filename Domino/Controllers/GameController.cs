@@ -14,7 +14,7 @@ public class GameController
     private List<IPlayer> _players;
     private Dictionary<IPlayer, List<ICard>> _hand;
     private List<ICard> _placableCards;
-    private IPlayer _currentPlayer;
+    private IPlayer? _currentPlayer;
     private int _turnIndex;
     private int _round;
     public int PlayerCount;
@@ -58,7 +58,6 @@ public class GameController
         OnPlayerTurn += ShowHand;
         OnGameOver += CalculateScores;
         OnGameOver += ShowScore;
-        //OnGameOver +=
         _originalBackground = Console.BackgroundColor;
         _originalForeground = Console.ForegroundColor;
         _message = new StringBuilder();
@@ -70,7 +69,7 @@ public class GameController
         AssignPlayerNames();
         foreach (IPlayer player in _players)
         {
-            Console.Write($"\nGiving cards to players");
+            Console.Write($"\nGiving cards to {player.Name}");
             SetHandCard(player);
         }
     }
@@ -78,21 +77,24 @@ public class GameController
     {
         foreach (IPlayer player in _players)
         {
-            player.Name = "Player " + (_players.IndexOf(player) + 1);
+            player.Name = player.Name.Trim();
         }
     }
     public void StartGame()
     {
         Console.WriteLine("Intializing game...");
         Thread.Sleep(1000);
-        OnGameStart();
+        OnGameStart?.Invoke();
         _round = 1;
         while (!CheckGameOver())
         {
             ShowMessage();
             Thread.Sleep(500);
-            OnPlayerTurn(_currentPlayer);
-            if (CanPlaceCard(_hand[_currentPlayer]))
+            if (_currentPlayer != null)
+            {
+                OnPlayerTurn?.Invoke(_currentPlayer);
+            }
+            if (_currentPlayer != null && CanPlaceCard(_hand[_currentPlayer]))
             {
                 ExecuteMove();
                 _passCount = 0;
@@ -104,9 +106,11 @@ public class GameController
             TurnOrder();
         }
         Console.Clear();
-        ShowBoard(_currentPlayer);
-        CalculateScores();
-        ShowScore();
+        if (_currentPlayer != null)
+        {
+            ShowBoard(_currentPlayer);
+        }
+        OnGameOver();
         Console.WriteLine($"\nGame Over! The Winner is {GetWinner().Name} with a score of {GetWinner().Score}.");
     }
     public void SetHandCard(IPlayer player)
@@ -114,7 +118,7 @@ public class GameController
         _hand[player] = new List<ICard>();
         for (int i = 0; i < 7; i++)
         {
-            if (_deck.Cards.Count > 0)
+            if (!_deck.IsEmpty())
             {
                 _hand[player].Add(DrawCard());
             }
@@ -141,10 +145,10 @@ public class GameController
     public void DetermineFirstPlayer()
     {
         Console.Write("\nDetermining first player");
-        IPlayer highestDoublePlayer = null;
-        IPlayer highestValuePlayer = null;
-        ICard highestDoubleCard = null;
-        ICard highestValueCard = null;
+        IPlayer? highestDoublePlayer = null;
+        IPlayer? highestValuePlayer = null;
+        ICard? highestDoubleCard = null;
+        ICard? highestValueCard = null;
         foreach (IPlayer player in _players)
         {
             foreach (ICard card in _hand[player])
@@ -168,7 +172,11 @@ public class GameController
             Thread.Sleep(250);
         }
         _currentPlayer = highestDoublePlayer ?? highestValuePlayer;
-        ICard firstcard = highestDoubleCard ?? highestValueCard;
+        ICard? firstcard = highestDoubleCard ?? highestValueCard;
+        if (firstcard == null || _currentPlayer == null)
+        {
+            throw new InvalidOperationException("No valid starting card or player found.");
+        }
 
         _message.Append($"\nFirst card played by {_currentPlayer.Name} with {firstcard.LeftFaceValue}|{firstcard.RightFaceValue}");
 
@@ -188,6 +196,7 @@ public class GameController
     {
         return RightEndValue;
     }
+
     public void UpdateEndValues(int value, Side side)
     {
         if (side == Side.LEFT)
@@ -228,9 +237,7 @@ public class GameController
     //public PlacementInfo CreatePlacementInfo(bool canPlace, Side side, bool needsFlip)
     public void FlipCard(ICard card)
     {
-        int temp = card.RightFaceValue;
-        card.RightFaceValue = card.LeftFaceValue;
-        card.LeftFaceValue = temp;
+        (card.LeftFaceValue, card.RightFaceValue) = (card.RightFaceValue, card.LeftFaceValue);
     }
     public void GetPlayableMoves(IPlayer player)
     {
@@ -303,14 +310,24 @@ public class GameController
         }
         // Place the card
         PlaceCardOnBoard(cardToPlace, PlacementSide);
-        _hand[_currentPlayer].Remove(cardToPlace);
-        ShowBoard(_currentPlayer);
-        ShowHand(_currentPlayer);
+        if (_currentPlayer != null)
+        {
+            _hand[_currentPlayer].Remove(cardToPlace);
+            ShowBoard(_currentPlayer);
+            ShowHand(_currentPlayer);
+        }
         return true;
     }
     public void PlaceCardOnBoard(ICard card, Side side)
     {
-        _message.Append($"\n{_currentPlayer.Name} played {card.LeftFaceValue}|{card.RightFaceValue} on the {side}.");
+        if (_currentPlayer != null)
+        {
+            _message.Append($"\n{_currentPlayer.Name} played {card.LeftFaceValue}|{card.RightFaceValue} on the {side}.");
+        }
+        else
+        {
+            _message.Append($"\nA player played {card.LeftFaceValue}|{card.RightFaceValue} on the {side}.");
+        }
         if (side == Side.LEFT)
         {
             if (card.LeftFaceValue == LeftEndValue)
@@ -333,7 +350,14 @@ public class GameController
     //public NextTurn(Action<IPlayer> OnPlayerTurn)
     public void PassTurn()
     {
-        _message.Append($"\n{_currentPlayer.Name} has passed their turn.");
+        if (_currentPlayer != null)
+        {
+            _message.Append($"\n{_currentPlayer.Name} has passed their turn.");
+        }
+        else
+        {
+            _message.Append("\nA player has passed their turn.");
+        }
         _passCount++;
     }
     public void ShowBoard(IPlayer player)

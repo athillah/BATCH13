@@ -11,8 +11,8 @@ internal class Program
     {
         List<IPlayer> players =
         [
-            new Player("Alice", null),
-            new Player("Bob", null),
+            new Player("Alice"),
+            new Player("Bob"),
         ];
         IDeck deck = new Deck();
         IBoard board = new Board();

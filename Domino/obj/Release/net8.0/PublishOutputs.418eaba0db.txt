@@ -1,0 +1,5 @@
+C:\Athillah\BATCH13\Domino\bin\Release\net8.0\publish\Domino.exe
+C:\Athillah\BATCH13\Domino\bin\Release\net8.0\publish\Domino.dll
+C:\Athillah\BATCH13\Domino\bin\Release\net8.0\publish\Domino.deps.json
+C:\Athillah\BATCH13\Domino\bin\Release\net8.0\publish\Domino.runtimeconfig.json
+C:\Athillah\BATCH13\Domino\bin\Release\net8.0\publish\Domino.pdb
