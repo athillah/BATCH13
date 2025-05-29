@@ -102,6 +102,8 @@ public class GameController
             {
                 PassTurn();
             }
+            Console.WriteLine("\nPress Enter to continue...");
+            Console.ReadLine();
             TurnOrder();
         }
         Console.Clear();
@@ -110,7 +112,7 @@ public class GameController
             ShowBoard(_currentPlayer);
         }
         OnGameOver?.Invoke();
-        Console.WriteLine($"\nGame Over! The Winner is {GetWinner().Name} with a score of {GetWinner().Score}.");
+        Console.WriteLine($"\nGame Over! The Winner is {GetWinner().Name} with the least score of {GetWinner().Score}.");
     }
     public void SetHandCard(IPlayer player)
     {
@@ -127,7 +129,7 @@ public class GameController
                 break;
             }
             Console.Write(".");
-            Thread.Sleep(250);
+            Thread.Sleep(77);
         }
     }
     // public ICard GetHandCard(IPlayer player)
@@ -159,7 +161,7 @@ public class GameController
                         highestDoubleCard = card;
                         highestDoublePlayer = player;
                         Console.Write(".");
-                        Thread.Sleep(250);
+                        Thread.Sleep(77);
                     }
                 }
                 if (highestValueCard == null || card.LeftFaceValue + card.RightFaceValue > highestValueCard.LeftFaceValue + highestValueCard.RightFaceValue)
@@ -167,7 +169,7 @@ public class GameController
                     highestValueCard = card;
                     highestValuePlayer = player;
                     Console.Write(".");
-                    Thread.Sleep(250);
+                    Thread.Sleep(77);
                 }
             }
         }
@@ -313,6 +315,9 @@ public class GameController
         if (_currentPlayer != null)
         {
             _hand[_currentPlayer].Remove(cardToPlace);
+            Console.Clear();
+            Console.WriteLine($"You played {cardToPlace.LeftFaceValue}|{cardToPlace.RightFaceValue} on the {PlacementSide}.");
+            Console.WriteLine($"{Line(5)}");
             ShowBoard(_currentPlayer);
             ShowHand(_currentPlayer);
         }
@@ -350,6 +355,7 @@ public class GameController
     //public NextTurn(Action<IPlayer> OnPlayerTurn)
     public void PassTurn()
     {
+        Console.WriteLine("No playable cards available. Passing turn...");
         if (_currentPlayer != null)
         {
             _message.Append($"\n{_currentPlayer.Name} has passed their turn.");
@@ -362,39 +368,39 @@ public class GameController
     }
     public void ShowBoard(IPlayer player)
     {
+        Console.WriteLine("Board: ");
+        Console.WriteLine($"{Line((_board.PlayedCards.Count))}");
         foreach (ICard card in _board.PlayedCards)
         {
             Console.Write(" ");
             SetDominoColor();
             Console.Write($" {card.LeftFaceValue}|{card.RightFaceValue} ");
             ResetConsoleColor();
-            Console.Write(" ");
         }
-        Console.WriteLine($"\nLEFT {LeftEndValue} RIGHT {RightEndValue}");
-        ResetConsoleColor();
+        Console.WriteLine($"\n{Line((_board.PlayedCards.Count))}");
     }
     public void ShowHand(IPlayer player)
     {
-        Console.WriteLine("+-------------------------+");
         Console.WriteLine($"{player.Name}'s hand: ");
+        Console.WriteLine($"{Line((_hand[player].Count))}");
         foreach (ICard card in _hand[player])
         {
             if (CanConnect(card))
             {
+                Console.Write(" ");
                 SetDominoColor();
                 Console.Write($" {card.LeftFaceValue}|{card.RightFaceValue} ");
                 ResetConsoleColor();
-                Console.Write(" ");
             }
             else
             {
+                Console.Write(" ");
                 SetReversedDominoColor();
                 Console.Write($" {card.LeftFaceValue}|{card.RightFaceValue} ");
                 ResetConsoleColor();
-                Console.Write(" ");
             }
         }
-        Console.WriteLine("\n+-------------------------+");
+        Console.WriteLine($"\n{Line((_hand[player].Count))}");
     }
     public void CalculateScores()
     {
@@ -474,7 +480,7 @@ public class GameController
             {
                 _deck.Cards.Add(CreateCard((i * 10) + j, j, i));
             }
-            Thread.Sleep(250);
+            Thread.Sleep(77);
             Console.Write(".");
         }
     }
@@ -492,7 +498,7 @@ public class GameController
             if (i % 4 == 0)
             {
                 Console.Write(".");
-                Thread.Sleep(250);
+                Thread.Sleep(77);
             }
         }
     }
@@ -521,8 +527,20 @@ public class GameController
     public void ShowMessage()
     {
         Console.Clear();
-        _message.Append("\n+-------------------------+");
-        Console.WriteLine(_message.ToString());
+        _message.Append($"\n{Line(_message.Length/12)}");
+        Console.WriteLine(GetMessage());
         _message.Clear();
+    }
+    public string GetMessage()
+    {
+        return _message.ToString();
+    }
+    public string Line(int length)
+    {
+        StringBuilder line = new StringBuilder();
+        line.Append("+");
+        line.Append('-', 6*length);
+        line.Append('+');
+        return line.ToString();
     }
 }
