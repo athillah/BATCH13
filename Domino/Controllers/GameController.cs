@@ -159,6 +159,7 @@ public class GameController
                         highestDoubleCard = card;
                         highestDoublePlayer = player;
                         Console.Write(".");
+                        Thread.Sleep(250);
                     }
                 }
                 if (highestValueCard == null || card.LeftFaceValue + card.RightFaceValue > highestValueCard.LeftFaceValue + highestValueCard.RightFaceValue)
@@ -166,9 +167,9 @@ public class GameController
                     highestValueCard = card;
                     highestValuePlayer = player;
                     Console.Write(".");
+                    Thread.Sleep(250);
                 }
             }
-            Thread.Sleep(250);
         }
         _currentPlayer = highestDoublePlayer ?? highestValuePlayer;
         ICard? firstcard = highestDoubleCard ?? highestValueCard;
