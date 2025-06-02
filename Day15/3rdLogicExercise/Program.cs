@@ -16,49 +16,32 @@ using static System.Console;
 
 class Program
 {
+    static bool flag = false;
     static void Main()
     {
         Clear();
         Print(135);
     }
-    public static bool IsDivisibleBy(int nominator, int denominator)
+    public static void output(StringBuilder sb, string input)
     {
-        return nominator % denominator == 0;
+        sb.Append(input);
+        flag = true;
     }
     public static void Print(int nominator)
     {
-        StringBuilder output = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= nominator; i++)
         {
-            if (IsDivisibleBy(i, 3))
-            {
-                output.Append("foo");
-            }
-            if (IsDivisibleBy(i, 5))
-            {
-                output.Append("bar");
-            }
-            if (IsDivisibleBy(i, 7))
-            {
-                output.Append("jazz");
-            }
-            if (IsDivisibleBy(i, 9))
-            {
-                output.Append("huzz");
-            }
-            if (!IsDivisibleBy(i, 3) && !IsDivisibleBy(i, 5) && !IsDivisibleBy(i, 7) && !IsDivisibleBy(i, 9))
-            {
-                output.Append(i);
-            }
-            if (i != nominator)
-            {
-                output.Append(", ");
-            }
-            if (IsDivisibleBy(i, 7))
-            {
-                output.Append("\n");
-            }
+            flag = false;
+            if (i % 3 == 0) output(sb, "foo");
+            if (i % 4 == 0) output(sb, "baz");
+            if (i % 5 == 0) output(sb, "bar");
+            if (i % 7 == 0) output(sb, "jazz");
+            if (i % 9 == 0) output(sb, "huzz");
+            if (!flag) output(sb, i.ToString());
+            if (i != nominator) output(sb, ", ");
+            if (i % 10 == 0) output(sb, "\n");
         }
-        WriteLine(output.ToString());
+        WriteLine(sb.ToString());
     }
 }
