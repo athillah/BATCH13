@@ -47,7 +47,6 @@ public class GameController
         _deck = deck;
         _board = board;
         _hand = new Dictionary<IPlayer, List<ICard>>();
-        _turnIndex = 0;
         _placableCards = new List<ICard>();
         OnGameStart += GenerateStandardDeck;
         OnGameStart += Shuffle;
@@ -104,7 +103,7 @@ public class GameController
             }
             Console.WriteLine("\nPress Enter to continue...");
             Console.ReadLine();
-            TurnOrder();
+            NextTurn();
         }
         Console.Clear();
         if (_currentPlayer != null)
@@ -138,10 +137,9 @@ public class GameController
     // }
     public void TurnOrder()
     {
-        _round++;
-        _turnIndex = (_turnIndex + 1) % _players.Count;
-        _currentPlayer = _players[_turnIndex];
-        _message.Append($"\nRound {_round} = {_currentPlayer.Name}'s turn.");
+        _turnIndex = 0;
+        _round = 0;
+        _currentPlayer = _players[0];
     }
     public void DetermineFirstPlayer()
     {
@@ -186,7 +184,7 @@ public class GameController
         LeftEndValue = firstcard.LeftFaceValue;
         RightEndValue = firstcard.RightFaceValue;
         _hand[_currentPlayer].Remove(firstcard);
-        TurnOrder();
+        NextTurn();
         _round = 0;
     }
 
@@ -352,7 +350,13 @@ public class GameController
             UpdateEndValues(card.RightFaceValue, Side.RIGHT);
         }
     }
-    //public NextTurn(Action<IPlayer> OnPlayerTurn)
+    public void NextTurn ()
+    {
+        _round++;
+        _turnIndex = (_turnIndex + 1) % _players.Count;
+        _currentPlayer = _players[_turnIndex];
+        _message.Append($"\nRound {_round} = {_currentPlayer.Name}'s turn.");
+    }
     public void PassTurn()
     {
         Console.WriteLine("No playable cards available. Passing turn...");

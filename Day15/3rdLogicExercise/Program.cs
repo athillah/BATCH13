@@ -46,7 +46,7 @@ class Program
             {
                 output.Append("huzz");
             }
-            if (!IsDivisibleBy(i, 3) && !IsDivisibleBy(i, 5) && !IsDivisibleBy(i, 7) && !IsDivisibleBy(i, 7))
+            if (!IsDivisibleBy(i, 3) && !IsDivisibleBy(i, 5) && !IsDivisibleBy(i, 7) && !IsDivisibleBy(i, 9))
             {
                 output.Append(i);
             }
