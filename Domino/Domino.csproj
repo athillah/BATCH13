@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
@@ -13,11 +13,13 @@
     <Content Include="Interfaces\IDeck.cs" />
     <Content Include="Interfaces\ICard.cs" />
     <Content Include="Interfaces\IBoard.cs" />
+    <Content Include="Interfaces\IDisplay.cs" />
     <Content Include="Models\PLayer.cs" />
     <Content Include="Models\Deck.cs" />
     <Content Include="Models\Card.cs" />
     <Content Include="Models\Board.cs" />
+    <Content Include="Models\Display.cs" />
     <Content Include="Controllers\GameController.cs" />
+    <Content Include="Models\Display.cs" />
   </ItemGroup>
-
 </Project>
