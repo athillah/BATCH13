@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day15\LogicClass\bin\Debug\net8.0\LogicClass.exe
+C:\Athillah\BATCH13\Day15\LogicClass\bin\Debug\net8.0\LogicClass.deps.json
+C:\Athillah\BATCH13\Day15\LogicClass\bin\Debug\net8.0\LogicClass.runtimeconfig.json
+C:\Athillah\BATCH13\Day15\LogicClass\bin\Debug\net8.0\LogicClass.dll
+C:\Athillah\BATCH13\Day15\LogicClass\bin\Debug\net8.0\LogicClass.pdb
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.sourcelink.json
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.dll
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\refint\LogicClass.dll
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.pdb
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\LogicClass.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day15\LogicClass\obj\Debug\net8.0\ref\LogicClass.dll

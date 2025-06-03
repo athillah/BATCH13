@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Athillah\\BATCH13\\Day15\\3rdLogicExercise\\3rdLogicExercise.csproj",
-      "projectName": "3rdLogicExercise",
-      "projectPath": "C:\\Athillah\\BATCH13\\Day15\\3rdLogicExercise\\3rdLogicExercise.csproj",
+      "projectUniqueName": "C:\\Athillah\\BATCH13\\Day15\\LogicClass\\LogicClass.csproj",
+      "projectName": "LogicClass",
+      "projectPath": "C:\\Athillah\\BATCH13\\Day15\\LogicClass\\LogicClass.csproj",
       "packagesPath": "C:\\Users\\SE-86\\.nuget\\packages\\",
-      "outputPath": "C:\\Athillah\\BATCH13\\Day15\\3rdLogicExercise\\obj\\",
+      "outputPath": "C:\\Athillah\\BATCH13\\Day15\\LogicClass\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\SE-86\\AppData\\Roaming\\NuGet\\NuGet.Config"
