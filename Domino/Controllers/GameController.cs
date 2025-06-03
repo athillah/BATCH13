@@ -19,8 +19,10 @@ public class GameController
     private int _round;
     private int _playerCount;
     private int _passCount = 0;
-    //private int _maxPlayers;
-    private int[]? _winScore;
+    private int _maxPlayers;
+    private int _maxHandSize = 7;
+    private int _maxDeckSize = 1;
+    private Dictionary<IPlayer, int> _winScore;
 
     public Action OnGameStart;
     public Action<IPlayer> OnPlayerTurn;
@@ -35,7 +37,7 @@ public class GameController
     public int? LeftEndValue = null;
     public int? RightEndValue = null;
 
-    public GameController(List<IPlayer> players, IDeck deck, IBoard board)
+    public GameController(List<IPlayer> players, IDeck deck, IBoard board, int maxHandSize)
     {
         _players = players;
         _playerCount = players.Count;
@@ -43,6 +45,16 @@ public class GameController
         _board = board;
         _hand = new Dictionary<IPlayer, List<ICard>>();
         _placableCards = new List<ICard>();
+        _maxHandSize = maxHandSize;
+        setHandSize();
+    }
+    private void setHandSize()
+    {
+        if ((_playerCount * _maxHandSize) > 28 * _maxDeckSize)
+        {
+            if (_playerCount > 4) _maxDeckSize++;
+            else _maxHandSize = 28 / _playerCount;
+        }
     }
     public void SetupPlayers()
     {
@@ -62,7 +74,7 @@ public class GameController
     public void SetHandCard(IPlayer player)
     {
         _hand[player] = new List<ICard>();
-        for (int i = 0; i < 7; i++) if (!_deck.IsEmpty()) _hand[player].Add(DrawCard());
+        for (int i = 0; i < _maxHandSize; i++) if (!_deck.IsEmpty()) _hand[player].Add(DrawCard());
     }
     // public ICard GetHandCard(IPlayer player)
     // {
@@ -125,8 +137,8 @@ public class GameController
                 break;
         }
     }
-public bool CanPlaceCard(List<ICard> hand)
-    => hand.Any(CanConnect);
+    public bool CanPlaceCard(List<ICard> hand)
+        => hand.Any(CanConnect);
 
     public bool CanConnect(ICard card)
         => card.GetValue().Any(value => value == LeftEndValue || value == RightEndValue);
@@ -162,7 +174,7 @@ public bool CanPlaceCard(List<ICard> hand)
         _passCount = 0;
         _placementSide = placementSide;
         PlaceCardOnBoard(cardToPlace, _placementSide);
-        _hand[_currentPlayer].Remove(cardToPlace);;
+        _hand[_currentPlayer].Remove(cardToPlace); ;
     }
     public void PlaceCardOnBoard(ICard card, Side side)
     {
@@ -196,8 +208,8 @@ public bool CanPlaceCard(List<ICard> hand)
         _passCount++;
         NextTurn();
     }
-    public List<ICard> GetBoard()
-        => _board.PlayedCards;
+    public IBoard GetBoard()
+        => _board;
     public List<ICard> GetHand()
         => _hand[_currentPlayer] ?? new List<ICard>();
     public int GetHandValue(IPlayer player)
@@ -218,20 +230,24 @@ public bool CanPlaceCard(List<ICard> hand)
     }
     public void CalculateScores()
     {
-        _winScore = new int[_playerCount];
+        _winScore = new Dictionary<IPlayer, int>();
         foreach (IPlayer player in _players)
         {
             int value = GetHandValue(player);
             player.Score = value;
-            _winScore[_players.IndexOf(player)] = player.Score;
+            _winScore[player] = value;
         }
     }
     // public void SetScore(IPlayer player, int score)
     // {
     //     player.Score = score;
     // }
-    public int[] GetScores()
-        => _winScore ?? Array.Empty<int>();
+    public Dictionary<IPlayer, int> GetScores()
+        => _winScore;
+    public int GetRound()
+        => _round;
+    public List<IPlayer> GetPlayers()
+        => _players;
     public int GetScore(IPlayer player)
         => player.Score;
     public IPlayer GetWinner()
@@ -258,14 +274,19 @@ public bool CanPlaceCard(List<ICard> hand)
     }
     public void GenerateStandardDeck()
     {
-        for (int left = 0; left <= 6; left++)
+        for (int deck = 0; deck < _maxDeckSize; deck++)
         {
-            for (int right = 0; right <= left; right++)
+            for (int left = 0; left <= 6; left++)
             {
-                _deck.Cards.Add(createCard((left * 10) + right, left, right));
+                for (int right = 0; right <= left; right++)
+                {
+                    _deck.Cards.Add(createCard((left * 10) + right, left, right));
+                }
             }
         }
     }
+    public List<ICard> GetHandByPlayer(IPlayer player)
+    => _hand[player];
     public void Shuffle()
     {
         Random random = new Random();

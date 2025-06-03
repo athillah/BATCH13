@@ -59,9 +59,8 @@ public class Display : IDisplay
     {
         if (_message.Length != 0)
         {
-            Console.WriteLine($"{Line(_message.Length/5)}");
             Console.WriteLine(GetMessage());
-            Console.WriteLine($"{Line(_message.Length/5)}");
+            Console.WriteLine($"{Line(_message.Length / 5)}");
         }
     }
     public string GetMessage()
@@ -85,7 +84,7 @@ public class Display : IDisplay
     {
         StringBuilder line = new StringBuilder();
         line.Append("+");
-        line.Append('-', 5 * (1+length));
+        line.Append('-', (5 * length) + (length - 1));
         line.Append("+");
         return line.ToString();
     }
@@ -102,34 +101,35 @@ public class Display : IDisplay
         }
         Console.WriteLine();
     }
-    private string welcome()
-        => "Welcome to Dominomatrix!";
+
     public void ShowBoard(IBoard board)
     {
-        Console.WriteLine($"{Line(1)} BOARD {Line(1)}");
+        Console.WriteLine($"= Board");
         Console.WriteLine($"{Line(board.PlayedCards.Count)}");
+        Space(1);
         foreach (ICard card in board.PlayedCards)
         {
-            Space(1);
             setDominoColor();
             Console.Write($" {card.LeftFaceValue}|{card.RightFaceValue} ");
             resetConsoleColor();
+            if (card != board.PlayedCards.Last()) Space(1);
         }
         Console.WriteLine($"\n{Line(board.PlayedCards.Count)}");
     }
     public void ShowHand(string name, List<ICard> hand, List<ICard> playableCards)
     {
-        Console.WriteLine($"{Line(1)} {name}'s hand {Line(1)}");
+        Console.WriteLine($"= {name}'s hand");
         Console.WriteLine($"{Line(hand.Count)}");
+        Space(1);
         foreach (ICard card in hand)
         {
-            Space(1);
             if (playableCards.Contains(card))
                 setDominoColor();
             else
                 setReversedDominoColor();
             Console.Write($" {card.LeftFaceValue}|{card.RightFaceValue} ");
             resetConsoleColor();
+            if (card != hand.Last()) Space(1);
         }
         Console.WriteLine($"\n{Line(hand.Count)}");
     }
@@ -137,5 +137,54 @@ public class Display : IDisplay
     {
         Console.Write("Press any key to continue...");
         Console.ReadKey();
+    }
+    public void ShowScore(Dictionary<IPlayer, int> scores)
+    {
+        int pos = 1;
+        scores = scores.OrderBy(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+        Console.WriteLine("Score Summary");
+        Console.WriteLine("   Player\tScore");
+        Console.WriteLine($"{Line(3*5)}");
+        foreach (var player in scores)
+        {
+            Console.Write($"{pos++}. {player.Key.Name}\t{player.Value}   ");
+            if (pos == 2)
+            {
+                setDominoColor();
+                Console.Write("  Winner!");
+            }
+            resetConsoleColor();
+            Space(1);
+        }
+    }
+    public void ShowGameInfo(int round, string playerName)
+        => AddMessage($"= Round {round} - {playerName}'s turn");
+    public int PromptMenu()
+    {
+        while (true)
+        {
+            string? input = ReadString();
+            if (int.TryParse(input, out int result) && result > 0)
+            {
+                return result;
+            }
+            Console.WriteLine("Please enter a valid number.");
+        }
+    }
+    public void MainMenu()
+    {
+        ClearConsole();
+        Console.Write("===== ");
+        setDominoColor();
+        Console.Write("[ DOM|INO ]");
+        resetConsoleColor();
+        Console.WriteLine(" =====\n");
+        Console.WriteLine(" 1. Start Game\n 2. Settings\n 3. Exit");
+    }
+    public void ConfigMenu()
+    {
+        ClearConsole();
+        Console.WriteLine("===== Settings =====\n");
+        Console.Write(" 1. Set Max Players\n 2. Set Max Hand Size\n 3. Back\n\nInsert an option: ");
     }
 }
