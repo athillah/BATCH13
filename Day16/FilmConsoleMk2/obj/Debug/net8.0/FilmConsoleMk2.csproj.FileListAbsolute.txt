@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Debug\net8.0\FilmConsoleMk2.exe
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Debug\net8.0\FilmConsoleMk2.deps.json
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Debug\net8.0\FilmConsoleMk2.runtimeconfig.json
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Debug\net8.0\FilmConsoleMk2.dll
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Debug\net8.0\FilmConsoleMk2.pdb
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.sourcelink.json
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.dll
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\refint\FilmConsoleMk2.dll
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.pdb
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\FilmConsoleMk2.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\obj\Debug\net8.0\ref\FilmConsoleMk2.dll

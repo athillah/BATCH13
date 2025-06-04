@@ -1,0 +1,15 @@
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.AssemblyInfo.cs
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.sourcelink.json
+C:\Athillah\BATCH13\Day16\StreamsIO\bin\Debug\net8.0\StreamsIO.exe
+C:\Athillah\BATCH13\Day16\StreamsIO\bin\Debug\net8.0\StreamsIO.deps.json
+C:\Athillah\BATCH13\Day16\StreamsIO\bin\Debug\net8.0\StreamsIO.runtimeconfig.json
+C:\Athillah\BATCH13\Day16\StreamsIO\bin\Debug\net8.0\StreamsIO.dll
+C:\Athillah\BATCH13\Day16\StreamsIO\bin\Debug\net8.0\StreamsIO.pdb
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.dll
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\refint\StreamsIO.dll
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.pdb
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\StreamsIO.genruntimeconfig.cache
+C:\Athillah\BATCH13\Day16\StreamsIO\obj\Debug\net8.0\ref\StreamsIO.dll
