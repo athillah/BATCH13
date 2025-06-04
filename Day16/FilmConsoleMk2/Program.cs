@@ -14,7 +14,7 @@ public class Film
     public string? Title { get; set; }
     public int Year { get; set; }
     public string? Director { get; set; }
-    public Film(string title, int year, string director)
+    public Film(string? title, int year, string? director)
     {
         Title = title;
         Year = year;
@@ -37,7 +37,7 @@ public class FilmLog
         _review = new Dictionary<Film, string>();
         _star = new Dictionary<Film, bool>();
     }
-    public void AddFilm(string title, int year, string director)
+    public void AddFilm(string? title, int year, string? director)
     {
         Film film = new Film(title, year, director);
         _films.Add(film);
@@ -54,7 +54,7 @@ public class FilmLog
     public void RemoveStar(Film film) => _star[film] = false;
     public bool HasStar(Film film) => _star.TryGetValue(film, out bool value) && value;
     public bool HasWatch(Film film) => _watch.TryGetValue(film, out WatchType wt) && wt != WatchType.WatchList;
-    public Film SeekFilm(string title)
+    public Film SeekFilm(string? title)
     {
         foreach (Film film in _films)
         {
@@ -73,7 +73,7 @@ public class FilmLog
         _watch.Remove(film);
         _star.Remove(film);
     }
-    public void UpdateFilm(Film film, string newTitle, int newYear, string newDirector)
+    public void UpdateFilm(Film film, string? newTitle, int newYear, string? newDirector)
     {
         film.Title = newTitle;
         film.Year = newYear;
@@ -148,18 +148,22 @@ public class FilmLog
     }
     public void SaveToTxt()
     {
-        using (FileStream fs = new FileStream("log.txt", FileMode.OpenOrCreate, FileAccess.Write))
+        using (FileStream fs = new FileStream("log.txt", FileMode.Create, FileAccess.Write))
         using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
         {
             foreach (Film film in _films)
             {
-                writer.Write($"{film.Title}|{film.Year}|{film.Director}");
-                writer.Write($"|{_watch[film]}|{_rate[film]}|{_review[film]}|{_star[film]}");
-                writer.WriteLine();
+                string title = film.Title ?? "";
+                string director = film.Director ?? "";
+                string watch = _watch.TryGetValue(film, out var wt) ? wt.ToString() : "No";
+                string rate = _rate.TryGetValue(film, out var r) ? r.ToString() : "0";
+                string review = _review.TryGetValue(film, out var rv) ? rv : "";
+                string star = _star.TryGetValue(film, out var s) && s ? "true" : "false";
+
+                writer.WriteLine($"{title}|{film.Year}|{director}|{watch}|{rate}|{review}|{star}");
             }
         }
     }
-    // ✅ JSON Serialization
     public void SerializeToJson()
     {
         var entries = new List<FilmEntry>();
@@ -181,8 +185,7 @@ public class FilmLog
         File.WriteAllText("films.json", json);
     }
 
-    // ✅ JSON Deserialization
-    public void LoadFromJson()
+    public void DeserializeFromJson()
     {
         if (!File.Exists("films.json")) return;
 
@@ -291,6 +294,7 @@ class Program
             display.Menu();
             menu = display.MenuPrompt();
             Console.Clear();
+            MyFilm.FilmDisplay();
             switch (menu)
             {
                 case 1:
@@ -324,6 +328,8 @@ class Program
                 case 4:
                     display.MiscMenu();
                     menu = display.MenuPrompt();
+                    Console.Clear();
+                    MyFilm.FilmDisplay();
                     switch (menu)
                     {
                         case 1:
@@ -379,7 +385,7 @@ class Program
                     MyFilm.SerializeToJson();
                     break;
                 case 8:
-                    MyFilm.LoadFromJson();
+                    MyFilm.DeserializeFromJson();
                     break;
                 default:
                     Console.Write("Invalid");
