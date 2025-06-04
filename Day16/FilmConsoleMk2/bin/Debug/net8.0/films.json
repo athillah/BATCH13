@@ -1,0 +1,29 @@
+[
+  {
+    "Title": "The Batman",
+    "Year": 2022,
+    "Director": "Matt Reeves",
+    "Watch": 0,
+    "Rate": 10,
+    "Review": "",
+    "Star": true
+  },
+  {
+    "Title": "Se7en",
+    "Year": 2002,
+    "Director": "Lupa",
+    "Watch": 0,
+    "Rate": 0,
+    "Review": "Detektif keren",
+    "Star": false
+  },
+  {
+    "Title": "Inilah Kisah Skena Gue",
+    "Year": 2025,
+    "Director": "Luana Intan",
+    "Watch": 1,
+    "Rate": 0,
+    "Review": "",
+    "Star": false
+  }
+]

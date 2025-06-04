@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 public enum WatchType
 {
@@ -109,7 +111,7 @@ public class FilmLog
             Console.Write($"{title} ({film.Year}) dir, {director}.\n");
         }
     }
-    public void Load()
+    public void LoadFromTxt()
     {
         if (!File.Exists("log.txt"))
         {
@@ -144,7 +146,7 @@ public class FilmLog
             }
         }
     }
-    public void Save()
+    public void SaveToTxt()
     {
         using (FileStream fs = new FileStream("log.txt", FileMode.OpenOrCreate, FileAccess.Write))
         using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
@@ -155,6 +157,54 @@ public class FilmLog
                 writer.Write($"|{_watch[film]}|{_rate[film]}|{_review[film]}|{_star[film]}");
                 writer.WriteLine();
             }
+        }
+    }
+    // ✅ JSON Serialization
+    public void SerializeToJson()
+    {
+        var entries = new List<FilmEntry>();
+        foreach (var film in _films)
+        {
+            entries.Add(new FilmEntry
+            {
+                Title = film.Title,
+                Year = film.Year,
+                Director = film.Director,
+                Watch = _watch.TryGetValue(film, out var wt) ? wt : WatchType.WatchList,
+                Rate = _rate.TryGetValue(film, out var r) ? r : 0f,
+                Review = _review.TryGetValue(film, out var rv) ? rv : "",
+                Star = _star.TryGetValue(film, out var s) && s
+            });
+        }
+
+        var json = JsonSerializer.Serialize(entries, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText("films.json", json);
+    }
+
+    // ✅ JSON Deserialization
+    public void LoadFromJson()
+    {
+        if (!File.Exists("films.json")) return;
+
+        string json = File.ReadAllText("films.json");
+        var entries = JsonSerializer.Deserialize<List<FilmEntry>>(json);
+
+        if (entries == null) return;
+
+        _films.Clear();
+        _watch.Clear();
+        _rate.Clear();
+        _review.Clear();
+        _star.Clear();
+
+        foreach (var entry in entries)
+        {
+            var film = new Film(entry.Title ?? "", entry.Year, entry.Director ?? "");
+            _films.Add(film);
+            _watch[film] = entry.Watch;
+            _rate[film] = entry.Rate;
+            _review[film] = entry.Review;
+            _star[film] = entry.Star;
         }
     }
 }
@@ -209,12 +259,23 @@ public class Display
     }
 }
 
+public class FilmEntry
+{
+    public string? Title { get; set; }
+    public int Year { get; set; }
+    public string? Director { get; set; }
+    public WatchType Watch { get; set; }
+    public float Rate { get; set; }
+    public string Review { get; set; } = "";
+    public bool Star { get; set; }
+}
+
 class Program
 {
     static void Main(string[] args)
     {
         FilmLog MyFilm = new FilmLog();
-        MyFilm.Load();
+        MyFilm.LoadFromTxt();
         Display display = new Display();
         display.Wait();
         Film film;
@@ -311,8 +372,14 @@ class Program
                     break;
                 case 6:
                     Console.Write("Thank You :)");
-                    MyFilm.Save();
+                    MyFilm.SaveToTxt();
                     Environment.Exit(0);
+                    break;
+                case 7:
+                    MyFilm.SerializeToJson();
+                    break;
+                case 8:
+                    MyFilm.LoadFromJson();
                     break;
                 default:
                     Console.Write("Invalid");

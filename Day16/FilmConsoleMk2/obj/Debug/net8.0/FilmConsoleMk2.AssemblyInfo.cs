@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FilmConsoleMk2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1fa456a7029ccc2dbadeb43d6129e9bd4f1ad2d9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89eac18fc9539b3a7fd339207572fb1823b00d86")]
 [assembly: System.Reflection.AssemblyProductAttribute("FilmConsoleMk2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FilmConsoleMk2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
