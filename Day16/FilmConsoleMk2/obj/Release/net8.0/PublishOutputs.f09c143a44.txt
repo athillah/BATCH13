@@ -1,0 +1,5 @@
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Release\net8.0\publish\FilmConsoleMk2.exe
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Release\net8.0\publish\FilmConsoleMk2.dll
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Release\net8.0\publish\FilmConsoleMk2.deps.json
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Release\net8.0\publish\FilmConsoleMk2.runtimeconfig.json
+C:\Athillah\BATCH13\Day16\FilmConsoleMk2\bin\Release\net8.0\publish\FilmConsoleMk2.pdb
