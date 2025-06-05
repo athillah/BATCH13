@@ -1,10 +1,12 @@
-namespace Domino.Interfaces;
+using Domino.Interfaces;
+namespace Domino.Models;
 
 public class Card : ICard
 {
     public int Id { get; set; }
     public int RightFaceValue { get; set; }
     public int LeftFaceValue { get; set; }
+    public int Image { get; set; }
     public Card(int id, int leftFaceValue, int rightFaceValue)
     {
         Id = id;
@@ -15,8 +17,5 @@ public class Card : ICard
     {
         return RightFaceValue == LeftFaceValue;
     }
-    public IEnumerable<int> GetValue()
-    {
-        return new[] { LeftFaceValue, RightFaceValue };
-    }
+    public IEnumerable<int> GetValue() => new[] { LeftFaceValue, RightFaceValue };
 }

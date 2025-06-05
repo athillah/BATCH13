@@ -22,4 +22,6 @@ public interface IDisplay
     void MainMenu();
     int PromptMenu();
     void ConfigMenu();
+    void ShowHint();
+    void PrintHeader(string title);
 }

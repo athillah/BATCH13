@@ -6,5 +6,6 @@ namespace Domino.Interfaces;
 public interface IBoard
 {
     List<ICard> PlayedCards { get; set; }
-    void UpdateBoard(ICard card, Side side);
+    // public void UpdateBoard(ICard card, Side side)
+    // public List<ICard> GetBoard()
 }
