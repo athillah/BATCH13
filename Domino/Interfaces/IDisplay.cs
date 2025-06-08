@@ -22,6 +22,6 @@ public interface IDisplay
     void MainMenu();
     int PromptMenu();
     void ConfigMenu();
-    void ShowHint();
+    void ShowHint(List<ICard> cards, List<ICard> playableCards);
     void PrintHeader(string title);
 }
