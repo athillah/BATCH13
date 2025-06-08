@@ -304,8 +304,21 @@ public class GameController
         => _currentPlayer
         ?? throw new InvalidOperationException("No current player set.");
 
-    public IBoard GetBoard()
-        => _board;
+public IBoard GetBoard()
+{
+    if (_board.PlayedCards.Count == 12)
+    {
+        var cards = _board.PlayedCards;
+        var first = cards.First();
+        var last = cards.Last();
+
+        cards.Clear();
+        cards.Add(first);
+        cards.Add(last);
+    }
+    return _board;
+}
+
 
     public int GetHandValue(IPlayer player)
         => _hand[player].Sum
