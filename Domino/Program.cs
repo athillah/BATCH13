@@ -1,4 +1,4 @@
-﻿using Domino.Controllers;
+using Domino.Controllers;
 using Domino.Interfaces;
 using Domino.Models;
 using Domino.Enumerations;
@@ -14,7 +14,8 @@ class Program
         IDisplay screen = new Display();
         screen.Wait();
 
-        ShowMainMenu(screen, ref maxPlayer, ref maxHandSize);
+        ShowMainMenu(
+            screen, ref maxPlayer, ref maxHandSize);
 
         List<IPlayer> players = CollectPlayers(screen, maxPlayer);
 
@@ -28,7 +29,8 @@ class Program
         EndGame(screen, logic);
     }
 
-    private static void ShowMainMenu(IDisplay screen, ref int maxPlayer, ref int maxHandSize)
+    private static void ShowMainMenu(
+        IDisplay screen, ref int maxPlayer, ref int maxHandSize)
     {
         bool start = false;
         while (!start)
@@ -45,7 +47,8 @@ class Program
                     break;
 
                 case 2:
-                    ConfigureGame(screen, ref maxPlayer, ref maxHandSize);
+                    ConfigureGame(
+                        screen, ref maxPlayer, ref maxHandSize);
                     break;
 
                 case 3:
@@ -63,8 +66,8 @@ class Program
         }
     }
 
-    private static void ConfigureGame
-    (IDisplay screen, ref int maxPlayer, ref int maxHandSize)
+    private static void ConfigureGame(
+        IDisplay screen, ref int maxPlayer, ref int maxHandSize)
     {
         bool leave = false;
         while (!leave)
@@ -97,7 +100,8 @@ class Program
         }
     }
 
-    private static List<IPlayer> CollectPlayers(IDisplay screen, int maxPlayer)
+    private static List<IPlayer> CollectPlayers(
+        IDisplay screen, int maxPlayer)
     {
         List<IPlayer> players = new List<IPlayer>();
         for (int i = 0; i < maxPlayer; i++)
@@ -121,7 +125,8 @@ class Program
         return players;
     }
 
-    private static void SetupGame(IDisplay screen, GameController logic)
+    private static void SetupGame(
+        IDisplay screen, GameController logic)
     {
         logic.OnGameStart += () => screen.DirectMessage("Generating Deck");
         logic.OnGameStart += logic.GenerateStandardDeck;
@@ -141,9 +146,11 @@ class Program
         logic.StartGame();
     }
 
-    private static void PlayGame(IDisplay screen, GameController logic)
+    private static void PlayGame(
+        IDisplay screen, GameController logic)
     {
-        while (!logic.CheckGameOver())
+        while (
+            !logic.CheckGameOver())
         {
             IPlayer player = logic.GetCurrentPlayer();
 
@@ -158,7 +165,9 @@ class Program
                 player.Name,
                 logic.GetHandCard(),
                 logic.CreateCardPlacement());
-            screen.ShowHint();
+            screen.ShowHint(
+                logic.GetHandCard(),
+                logic.CreateCardPlacement());
 
             if (logic.CanPlaceCard(logic.GetHandCard()))
             {
@@ -193,7 +202,8 @@ class Program
         }
     }
 
-    private static void EndGame(IDisplay screen, GameController logic)
+    private static void EndGame(
+        IDisplay screen, GameController logic)
     {
         logic.OnGameOver?.Invoke();
 
