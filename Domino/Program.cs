@@ -1,4 +1,4 @@
-﻿using Domino.Controllers;
+using Domino.Controllers;
 using Domino.Interfaces;
 using Domino.Models;
 using Domino.Enumerations;

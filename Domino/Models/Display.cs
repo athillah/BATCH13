@@ -139,6 +139,8 @@ public class Display : IDisplay
                     ConsoleColor.Yellow);
         printGlow("able\n\n",
                     ConsoleColor.Cyan);
+        printGlow("able\n\n",
+                    ConsoleColor.Cyan);
     }
 
     private void setColor(ConsoleColor bg, ConsoleColor fg)
@@ -271,9 +273,7 @@ public class Display : IDisplay
     public void LoadDot(int count)
     {
         for (int i = 0; i < count; i++)
-        {
             Console.Write("."); Thread.Sleep(66);
-        }
         Console.WriteLine();
     }
 
@@ -296,10 +296,10 @@ public class Display : IDisplay
 
     public void ShowHand(string name, List<ICard> hand, List<ICard> playableCards)
     {
+        Console.WriteLine();
         drawTitle(
             $"{name}'s hand", hand.Count);
-
-        // Console.WriteLine(drawLine(Math.Max(1, hand.Count)));
+            
         // if (hand.Count == 0)
         // {
         //     Console.WriteLine(drawLine(1)); return;
