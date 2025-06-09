@@ -5,46 +5,74 @@ namespace Domino.Models;
 
 public class Display : IDisplay
 {
-    public string? Id { get; set; } =
-                    "Basic Console Display";
+    public string? Id { get; set; }
+                    = "Basic Console Display";
     private StringBuilder _message = new();
     private readonly ConsoleColor _originalForeground
                    = Console.ForegroundColor;
     private readonly ConsoleColor _originalBackground
                    = Console.BackgroundColor;
 
-    private readonly string[][] _pattern = new string[][]{
-        new string[] { "   ", "   ", "   " },
-        new string[] { "   ", " ● ", "   " },
-        new string[] { "●  ", "   ", "  ●" },
-        new string[] { "●  ", " ● ", "  ●" },
-        new string[] { "● ●", "   ", "● ●" },
-        new string[] { "● ●", " ● ", "● ●" },
-        new string[] { "● ●", "● ●", "● ●" },
+    private readonly string[][] _pattern = new string[][]
+    {
+    new string[] { "         ", "         ", "         " },  // 0
+    new string[] { "         ", "    ●    ", "         " },  // 1
+    new string[] { " ●       ", "         ", "       ● " },  // 2
+    new string[] { " ●       ", "    ●    ", "       ● " },  // 3
+    new string[] { " ●     ● ", "         ", " ●     ● " },  // 4
+    new string[] { " ●     ● ", "    ●    ", " ●     ● " },  // 5
+    new string[] { " ●  ●  ● ", "         ", " ●  ●  ● " }   // 6
     };
+
+    private readonly string[] _title = new string[]
+{
+        " _____     ______     __    __     __     __   __     ______    ",
+        "/\\  __-.  /\\  __ \\   /\\ \"-./  \\   /\\ \\   /\\ \"-.\\ \\   /\\  __ \\   ",
+        "\\ \\ \\/\\ \\ \\ \\ \\/\\ \\  \\ \\ \\-./\\ \\  \\ \\ \\  \\ \\ \\-.  \\  \\ \\ \\/\\ \\  ",
+        " \\ \\____-  \\ \\_____\\  \\ \\_\\ \\ \\_\\  \\ \\_\\  \\ \\_\\\"\\_\\  \\ \\_____\\ ",
+        "  \\/____/   \\/_____/   \\/_/  \\/_/   \\/_/   \\/_/ \\/_/   \\/_____/ "
+};
+
 
     public Display()
     {
-        ClearConsole();
+        Clear();
         Console.OutputEncoding = System.Text.Encoding.UTF8;
     }
+
+    // public ICard PromptCardId(List<ICard> playableCards)
+    // {
+    //     while (true)
+    //     {
+    //         Console.WriteLine(
+    //             "Choose a card to play");
+    //         Console.Write("Enter ID, e.g., 50 for [5|0]): ");
+
+    //         if (int.TryParse((string?)ReadString(), out int cardId)
+    //         && playableCards.Any(c => c.Id == cardId))
+    //             return playableCards.First(c => c.Id == cardId);
+
+    //         printError("Invalid input. Try again.");
+    //     }
+    // }
 
     public ICard PromptCard(List<ICard> playableCards)
     {
         while (true)
         {
             Console.WriteLine(
-                "Choose a card to play");
-            Console.Write("Enter ID, e.g., 50 for [5|0]): ");
+                "Choose a card to play:");
+            Console.Write($"Enter index (1 to {playableCards.Count}): ");
 
-            string? input = ReadString();
-            if (int.TryParse(input, out int cardId)
-            && playableCards.Any(c => c.Id == cardId))
-                return playableCards.First(c => c.Id == cardId);
+            if (int.TryParse(ReadString(), out int idx)
+                && idx >= 0
+                && idx < playableCards.Count + 1)
+                return playableCards[idx - 1];
 
-            printError("Invalid input. Try again.");
+            printError("Invalid selection. Please choose a valid index.");
         }
     }
+
 
     public Side PromptSide()
     {
@@ -62,7 +90,7 @@ public class Display : IDisplay
         }
     }
 
-    public void ClearConsole()
+    public void Clear()
         => Console.Clear();
 
     public string ReadString()
@@ -87,15 +115,30 @@ public class Display : IDisplay
         ClearMessage();
     }
 
-    public void ShowHint()
+    public void ShowHint(List<ICard> cards, List<ICard> playableCards)
     {
-        Console.Write(" ");
-        printGlow("playable\n",
+        int idx = 1;
+        Console.Write("█");
+        foreach (var card in cards)
+        {
+            if (playableCards.Contains(card))
+            {
+                setColor(
+                    ConsoleColor.Cyan, ConsoleColor.White);
+                Console.Write(
+                    $"    {idx++}    ");
+                resetColor();
+            }
+            else Console.Write("         ");
+            if (card != cards.Last()) Console.Write(" ");
+            else Console.WriteLine("█");
+        }
+        Console.WriteLine();
+
+        printGlow(" play",
                     ConsoleColor.Yellow);
-        Console.Write(" ");
-        printGlow("unplayable",
-                    ConsoleColor.Red);
-        Console.WriteLine("\n");
+        printGlow("able\n\n",
+                    ConsoleColor.Cyan);
     }
 
     private void setColor(ConsoleColor bg, ConsoleColor fg)
@@ -111,16 +154,16 @@ public class Display : IDisplay
     }
 
     private string drawLine(int length)
-        => "+"
-        + new string('-'
-        , (length * 5)
+        => "█"
+        + new string('━'
+        , (length * 9)
         + (length - 1))
-        + "+";
+        + "█";
 
     private void drawTitle(string title, int contentLength)
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
-        int totalWidth = (contentLength * 5) +
+        int totalWidth = (contentLength * 9) +
                          (contentLength - 1) + 2;
         int titleLength = title.Length;
         int padding = Math.Max(0, (totalWidth - titleLength) / 2);
@@ -143,14 +186,68 @@ public class Display : IDisplay
         resetColor();
     }
 
-    // private string _getDominoTile(int left, int right, bool isHorizontal = true)
+    // private string getUTF(int left, int right, bool isHorizontal = true)
     // {
     //     int baseCodePoint = isHorizontal ? 0x1F031 : 0x1F063;
     //     int codePoint = baseCodePoint + (7 * left) + right;
     //     return char.ConvertFromUtf32(codePoint);
     // }
 
-    // private string encoder
+    private void printTileHoriontal(List<ICard> cards)
+    {
+        Console.WriteLine(
+            "▞" + new string('▀', cards.Count * 19 + cards.Count - 1) + "▚"
+        );
+        for (int line = 0; line < 3; line++)
+        {
+            Console.Write("▌");
+            foreach (var card in cards)
+            {
+                setColor(ConsoleColor.Yellow,
+                         ConsoleColor.Red);
+                Console.Write(
+                    $"{_pattern[card.LeftFaceValue][line]}┃{_pattern[card.RightFaceValue][line]}");
+                resetColor();
+
+                if (card != cards.Last()) Console.Write(" ");
+                else Console.WriteLine("▐");
+            }
+        }
+        Console.WriteLine(
+            "▚" + new string('▄', cards.Count * 19 + cards.Count - 1) + "▞"
+        );
+    }
+
+    private void changeColor(bool playable)
+    {
+        if (playable) setColor(ConsoleColor.Yellow, ConsoleColor.Red);
+        else setColor(ConsoleColor.Red, ConsoleColor.Yellow);
+    }
+
+    private void printTileVertical(List<ICard> cards, List<ICard> playableCards)
+    {
+        if (cards.Count != 0)
+            for (int line = 0; line < 7; line++)
+            {
+                Console.Write("▌");
+                foreach (var card in cards)
+                {
+                    changeColor(playableCards.Contains(card));
+                    if (line < 3)
+                        Console.Write(
+                            $"{_pattern[card.LeftFaceValue][line]}");
+                    if (line == 3)
+                        Console.Write(
+                            $"━━━━━━━━━");
+                    if (card.RightFaceValue >= 0 && card.RightFaceValue < _pattern.Length && (line - 4) >= 0 && (line - 4) < _pattern[card.RightFaceValue].Length)
+                        Console.Write($"{_pattern[card.RightFaceValue][line - 4]}");
+                    resetColor();
+                    if (card == cards.Last())
+                        Console.WriteLine("▐");
+                    else Console.Write(" ");
+                }
+            }
+    }
 
     public void PrintHeader(string title)
         => printGlow(
@@ -183,15 +280,18 @@ public class Display : IDisplay
     public void ShowBoard(IBoard board)
     {
         drawTitle(
-            $"Board", board.PlayedCards.Count);
+            $"Board", board.PlayedCards.Count * 2);
 
-        Console.Write($"{drawLine(board.PlayedCards.Count)}\n ");
-        foreach (var card in board.PlayedCards)
-        {
-            printCard(card.LeftFaceValue, card.RightFaceValue, true);
-            if (card != board.PlayedCards.Last()) Console.Write(" ");
-        }
-        Console.WriteLine($"\n{drawLine(board.PlayedCards.Count)}");
+        // Console.Write($"{drawLine(board.PlayedCards.Count)}\n ");
+        // foreach (var card in board.PlayedCards)
+        // {
+        //     printCard(card.LeftFaceValue, card.RightFaceValue, true);
+        //     if (card != board.PlayedCards.Last()) Console.Write(" ");
+        // }
+        // Console.WriteLine($"\n{drawLine(board.PlayedCards.Count)}");
+
+        printTileHoriontal(board.PlayedCards);
+        Console.WriteLine();
     }
 
     public void ShowHand(string name, List<ICard> hand, List<ICard> playableCards)
@@ -199,19 +299,22 @@ public class Display : IDisplay
         drawTitle(
             $"{name}'s hand", hand.Count);
 
+        // Console.WriteLine(drawLine(Math.Max(1, hand.Count)));
+        // if (hand.Count == 0)
+        // {
+        //     Console.WriteLine(drawLine(1)); return;
+        // }
+        // Console.Write(" ");
+        // foreach (var card in hand)
+        // {
+        //     printCard(card.LeftFaceValue, card.RightFaceValue,
+        //               playableCards.Contains(card));
+        //     if (card != hand.Last()) Console.Write(" ");
+        // }
+        // Console.WriteLine($"\n{drawLine(hand.Count)}");
         Console.WriteLine(drawLine(Math.Max(1, hand.Count)));
-        if (hand.Count == 0)
-        {
-            Console.WriteLine(drawLine(1)); return;
-        }
-        Console.Write(" ");
-        foreach (var card in hand)
-        {
-            printCard(card.LeftFaceValue, card.RightFaceValue,
-                      playableCards.Contains(card));
-            if (card != hand.Last()) Console.Write(" ");
-        }
-        Console.WriteLine($"\n{drawLine(hand.Count)}");
+        printTileVertical(hand, playableCards);
+        Console.WriteLine(drawLine(Math.Max(1, hand.Count)));
     }
 
     public void Wait()
@@ -265,7 +368,7 @@ public class Display : IDisplay
 
     public void MainMenu()
     {
-        ClearConsole();
+        Clear();
         Console.Write("===== ");
         setColor(ConsoleColor.Yellow, ConsoleColor.Red);
         Console.Write(
@@ -278,10 +381,38 @@ public class Display : IDisplay
 
     public void ConfigMenu()
     {
-        ClearConsole();
+        Clear();
         PrintHeader(
             "Settings");
         Console.Write(
             "\n 1. Set Max Players\n 2. Set Max Hand Size\n 3. Back\n\nInsert an option: ");
+    }
+    private void showTitle()
+    {
+        int width = Console.WindowWidth;
+        int height = Console.WindowHeight;
+        int _titleHeight = _title.Length;
+        int _titleWidth = _title[0].Length;
+        int centeredX = (width - _titleWidth) / 2;
+        double t = 0;
+
+        Console.CursorVisible = false;
+
+        while (true)
+        {
+            int centerY = (height - _titleHeight) / 2;
+            int offsetY = (int)(Math.Sin(t) * 5);   // amplitude = 5 rows
+            int drawY = centerY + offsetY;
+
+            Console.Clear();
+            for (int i = 0; i < _titleHeight; i++)
+            {
+                Console.SetCursorPosition(centeredX, drawY + i);
+                Console.Write(_title[i]);
+            }
+
+            Thread.Sleep(100);
+            t += 0.2;
+        }
     }
 }
