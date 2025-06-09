@@ -1,5 +1,5 @@
 using System.Text;
-using Domino.Enumerations;
+using Domino.Enums;
 using Domino.Interfaces;
 namespace Domino.Models;
 
@@ -8,12 +8,12 @@ public class Display : IDisplay
     public string? Id { get; set; }
                     = "Basic Console Display";
     private StringBuilder _message = new();
-    private readonly ConsoleColor _originalForeground
-                   = Console.ForegroundColor;
-    private readonly ConsoleColor _originalBackground
-                   = Console.BackgroundColor;
+    private ConsoleColor _originalForeground
+          = Console.ForegroundColor;
+    private ConsoleColor _originalBackground
+          = Console.BackgroundColor;
 
-    private readonly string[][] _pattern = new string[][]
+    private string[][] _pattern = new string[][]
     {
     new string[] { "         ", "         ", "         " },  // 0
     new string[] { "         ", "    ●    ", "         " },  // 1
@@ -24,37 +24,40 @@ public class Display : IDisplay
     new string[] { " ●  ●  ● ", "         ", " ●  ●  ● " }   // 6
     };
 
-    private readonly string[] _title = new string[]
-{
+    private string[] art = new string[]
+    {
         " _____     ______     __    __     __     __   __     ______    ",
         "/\\  __-.  /\\  __ \\   /\\ \"-./  \\   /\\ \\   /\\ \"-.\\ \\   /\\  __ \\   ",
         "\\ \\ \\/\\ \\ \\ \\ \\/\\ \\  \\ \\ \\-./\\ \\  \\ \\ \\  \\ \\ \\-.  \\  \\ \\ \\/\\ \\  ",
         " \\ \\____-  \\ \\_____\\  \\ \\_\\ \\ \\_\\  \\ \\_\\  \\ \\_\\\"\\_\\  \\ \\_____\\ ",
         "  \\/____/   \\/_____/   \\/_/  \\/_/   \\/_/   \\/_/ \\/_/   \\/_____/ "
-};
+    };
 
 
     public Display()
     {
         Clear();
         Console.OutputEncoding = System.Text.Encoding.UTF8;
+        ShowTitle();
     }
 
-    // public ICard PromptCardId(List<ICard> playableCards)
-    // {
-    //     while (true)
-    //     {
-    //         Console.WriteLine(
-    //             "Choose a card to play");
-    //         Console.Write("Enter ID, e.g., 50 for [5|0]): ");
+    public ICard PromptCardId(List<ICard> playableCards)
+    {
+        while (true)
+        {
+            Console.WriteLine(
+                "Choose a card to play");
+            Console.Write("Enter ID, e.g., 50 for [5|0]): ");
 
-    //         if (int.TryParse((string?)ReadString(), out int cardId)
-    //         && playableCards.Any(c => c.Id == cardId))
-    //             return playableCards.First(c => c.Id == cardId);
+            if (int.TryParse((string?)ReadString(), out int cardId)
+            && playableCards.Any(
+                c => c.Id == cardId))
+                return playableCards.First(
+                    c => c.Id == cardId);
 
-    //         printError("Invalid input. Try again.");
-    //     }
-    // }
+            PrintError("Invalid input. Try again.");
+        }
+    }
 
     public ICard PromptCard(List<ICard> playableCards)
     {
@@ -69,7 +72,7 @@ public class Display : IDisplay
                 && idx < playableCards.Count + 1)
                 return playableCards[idx - 1];
 
-            printError("Invalid selection. Please choose a valid index.");
+            PrintError("Invalid selection. Please choose a valid index.");
         }
     }
 
@@ -86,31 +89,51 @@ public class Display : IDisplay
             if (Enum.TryParse(typeof(Side), input, out var side))
                 return (Side)side;
 
-            printError("Invalid input. Please enter LEFT or RIGHT.");
+            PrintError("Invalid input. Please enter LEFT or RIGHT.");
         }
     }
 
     public void Clear()
-        => Console.Clear();
+    {
+        Console.Clear();
+    }
 
     public string ReadString()
-        => Console.ReadLine()?
-        .ToString().Trim()
-        ?? string.Empty;
+    {
+        return Console.ReadLine()?
+                      .ToString()
+                      .Trim()
+            ?? string.Empty;
+    }
 
-    public void DirectMessage(string message) => Console.Write(message);
-    public void AddMessage(string message) => _message.AppendLine(message);
-    public void ClearMessage() => _message.Clear();
-    public string GetMessage() => _message.ToString();
+    public void DirectMessage(string message)
+    {
+        Console.Write(message);
+    }
+
+    public void AddMessage(string message)
+    {
+        _message.AppendLine(message);
+    }
+
+    public void ClearMessage()
+    {
+        _message.Clear();
+    }
+
+    public string GetMessage()
+    {
+        return _message.ToString();
+    }
+
     public void ShowMessage()
     {
         if (_message.Length != 0)
         {
-            printGlow(
-                GetMessage(),
+            PrintGlow(GetMessage(),
                 ConsoleColor.Cyan);
             Console.WriteLine(
-                $"{drawLine(7)}\n");
+                $"{DrawLine(7)}\n");
         }
         ClearMessage();
     }
@@ -123,127 +146,140 @@ public class Display : IDisplay
         {
             if (playableCards.Contains(card))
             {
-                setColor(
-                    ConsoleColor.Cyan, ConsoleColor.White);
+                SetColor(
+                    ConsoleColor.Cyan,
+                    ConsoleColor.White);
                 Console.Write(
                     $"    {idx++}    ");
-                resetColor();
+                ResetColor();
             }
             else Console.Write("         ");
-            if (card != cards.Last()) Console.Write(" ");
+            if (card != cards.Last())
+                Console.Write(" ");
             else Console.WriteLine("█");
         }
         Console.WriteLine();
 
-        printGlow(" play",
+        PrintGlow(" play",
                     ConsoleColor.Yellow);
-        printGlow("able\n\n",
-                    ConsoleColor.Cyan);
-        printGlow("able\n\n",
+        PrintGlow("able\n\n",
                     ConsoleColor.Cyan);
     }
 
-    private void setColor(ConsoleColor bg, ConsoleColor fg)
+    private void SetColor(ConsoleColor bg, ConsoleColor fg)
     {
         Console.BackgroundColor = bg;
         Console.ForegroundColor = fg;
     }
 
-    private void resetColor()
+    private void ResetColor()
     {
         Console.BackgroundColor = _originalBackground;
         Console.ForegroundColor = _originalForeground;
     }
 
-    private string drawLine(int length)
-        => "█"
-        + new string('━'
-        , (length * 9)
-        + (length - 1))
-        + "█";
-
-    private void drawTitle(string title, int contentLength)
+    private string DrawLine(int length)
     {
-        Console.ForegroundColor = ConsoleColor.Cyan;
+        return "█"
+             + new string('━', (length * 9) + (length - 1))
+             + "█";
+    }
+
+    private void DrawTitle(string title, int contentLength)
+    {
+        Console.ForegroundColor =
+            ConsoleColor.Cyan;
+
         int totalWidth = (contentLength * 9) +
                          (contentLength - 1) + 2;
         int titleLength = title.Length;
         int padding = Math.Max(0, (totalWidth - titleLength) / 2);
 
         Console.WriteLine(new string(' ', padding) + title);
-        resetColor();
+        ResetColor();
 
     }
 
-    private void printCard(int left, int right, bool playable)
+    private void PrintCard(int left, int right, bool playable)
     {
-        if (playable) setColor(
-            ConsoleColor.Yellow,
-            ConsoleColor.Red);
-        else setColor(
-            ConsoleColor.Red,
-            ConsoleColor.Yellow);
-
-        Console.Write($" {left}|{right} ");
-        resetColor();
+        ChangeColor(playable);
+        Console.Write(
+            $" {left}|{right} ");
+        ResetColor();
     }
 
-    // private string getUTF(int left, int right, bool isHorizontal = true)
-    // {
-    //     int baseCodePoint = isHorizontal ? 0x1F031 : 0x1F063;
-    //     int codePoint = baseCodePoint + (7 * left) + right;
-    //     return char.ConvertFromUtf32(codePoint);
-    // }
+    private string GetUTF(int left, int right, bool isHorizontal = true)
+    {
+        int baseCodePoint = isHorizontal ? 0x1F031 : 0x1F063;
+        int codePoint = baseCodePoint + (7 * left) + right;
 
-    private void printTileHoriontal(List<ICard> cards)
+        return char.ConvertFromUtf32(codePoint);
+    }
+
+    private void PrintTileHorizontal(List<ICard> cards)
     {
         Console.WriteLine(
-            "▞" + new string('▀', cards.Count * 19 + cards.Count - 1) + "▚"
-        );
+            "▞" + new string('▀', cards.Count * 19 + cards.Count - 1) + "▚");
+
         for (int line = 0; line < 3; line++)
         {
             Console.Write("▌");
             foreach (var card in cards)
             {
-                setColor(ConsoleColor.Yellow,
-                         ConsoleColor.Red);
+                SetColor(
+                    ConsoleColor.Yellow,
+                    ConsoleColor.Red);
                 Console.Write(
                     $"{_pattern[card.LeftFaceValue][line]}┃{_pattern[card.RightFaceValue][line]}");
-                resetColor();
+                ResetColor();
 
-                if (card != cards.Last()) Console.Write(" ");
+                if (card != cards.Last())
+                    Console.Write(" ");
                 else Console.WriteLine("▐");
             }
         }
+
         Console.WriteLine(
-            "▚" + new string('▄', cards.Count * 19 + cards.Count - 1) + "▞"
-        );
+            "▚" + new string('▄', cards.Count * 19 + cards.Count - 1) + "▞");
     }
 
-    private void changeColor(bool playable)
+    private void ChangeColor(bool playable)
     {
-        if (playable) setColor(ConsoleColor.Yellow, ConsoleColor.Red);
-        else setColor(ConsoleColor.Red, ConsoleColor.Yellow);
+        if (playable)
+            SetColor(ConsoleColor.Yellow,
+                     ConsoleColor.Red);
+        else SetColor(ConsoleColor.Red,
+                      ConsoleColor.Yellow);
     }
 
-    private void printTileVertical(List<ICard> cards, List<ICard> playableCards)
+    private void PrintTileVertical(List<ICard> cards, List<ICard> playableCards)
     {
         if (cards.Count != 0)
             for (int line = 0; line < 7; line++)
             {
                 Console.Write("▌");
+
                 foreach (var card in cards)
                 {
-                    changeColor(playableCards.Contains(card));
+                    ChangeColor(playableCards.Contains(card));
+
                     if (line < 3)
                         Console.Write(
                             $"{_pattern[card.LeftFaceValue][line]}");
+
                     if (line == 3)
                         Console.Write(
                             $"━━━━━━━━━");
-                    if (card.RightFaceValue >= 0 && card.RightFaceValue < _pattern.Length && (line - 4) >= 0 && (line - 4) < _pattern[card.RightFaceValue].Length)
-                        Console.Write($"{_pattern[card.RightFaceValue][line - 4]}");
-                    resetColor();
+
+                    if (card.RightFaceValue >= 0 &&
+                        card.RightFaceValue < _pattern.Length &&
+                        (line - 4) >= 0 &&
+                        (line - 4) < _pattern[card.RightFaceValue].Length)
+                        Console.Write(
+                            $"{_pattern[card.RightFaceValue][line - 4]}");
+
+                    ResetColor();
+
                     if (card == cards.Last())
                         Console.WriteLine("▐");
                     else Console.Write(" ");
@@ -252,75 +288,64 @@ public class Display : IDisplay
     }
 
     public void PrintHeader(string title)
-        => printGlow(
-                $"=== {title} ===\n",
-                ConsoleColor.Cyan);
-
-    private void printError(string message)
     {
-        Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine($"!!{message}");
-        resetColor();
+        PrintGlow(
+            $"=== {title} ===\n", ConsoleColor.Cyan);
     }
 
-    private void printGlow(string message, ConsoleColor glow)
+    private void PrintError(string message)
+    {
+        Console.ForegroundColor =
+            ConsoleColor.DarkRed;
+        Console.WriteLine($"!!{message}");
+
+        ResetColor();
+    }
+
+    private void PrintGlow(string message, ConsoleColor glow)
     {
         Console.ForegroundColor = glow;
         Console.Write(message);
-        resetColor();
+
+        ResetColor();
     }
 
     public void LoadDot(int count)
     {
         for (int i = 0; i < count; i++)
             Console.Write("."); Thread.Sleep(66);
+
         Console.WriteLine();
     }
 
     public void ShowBoard(IBoard board)
     {
-        drawTitle(
+        DrawTitle(
             $"Board", board.PlayedCards.Count * 2);
 
-        // Console.Write($"{drawLine(board.PlayedCards.Count)}\n ");
-        // foreach (var card in board.PlayedCards)
-        // {
-        //     printCard(card.LeftFaceValue, card.RightFaceValue, true);
-        //     if (card != board.PlayedCards.Last()) Console.Write(" ");
-        // }
-        // Console.WriteLine($"\n{drawLine(board.PlayedCards.Count)}");
-
-        printTileHoriontal(board.PlayedCards);
+        PrintTileHorizontal(board.PlayedCards);
         Console.WriteLine();
     }
 
     public void ShowHand(string name, List<ICard> hand, List<ICard> playableCards)
     {
         Console.WriteLine();
-        drawTitle(
+        DrawTitle(
             $"{name}'s hand", hand.Count);
-            
-        // if (hand.Count == 0)
-        // {
-        //     Console.WriteLine(drawLine(1)); return;
-        // }
-        // Console.Write(" ");
-        // foreach (var card in hand)
-        // {
-        //     printCard(card.LeftFaceValue, card.RightFaceValue,
-        //               playableCards.Contains(card));
-        //     if (card != hand.Last()) Console.Write(" ");
-        // }
-        // Console.WriteLine($"\n{drawLine(hand.Count)}");
-        Console.WriteLine(drawLine(Math.Max(1, hand.Count)));
-        printTileVertical(hand, playableCards);
-        Console.WriteLine(drawLine(Math.Max(1, hand.Count)));
+
+        Console.WriteLine(
+            DrawLine(Math.Max(1, hand.Count)));
+        PrintTileVertical(
+            hand, playableCards);
+        Console.WriteLine(
+            DrawLine(Math.Max(1, hand.Count)));
     }
 
     public void Wait()
     {
         Console.Write(
             "\nPress any key to continue...");
+
         Console.ReadKey();
     }
 
@@ -330,38 +355,44 @@ public class Display : IDisplay
             "\nScore Summary");
 
         int pos = 1;
-        var ordered = scores.OrderBy(pair => pair.Value);
+        var ordered = scores.OrderBy(
+            pair => pair.Value);
 
-        Console.WriteLine(drawLine(7));
-        Console.WriteLine("   Player\tScore");
-        Console.WriteLine(drawLine(7));
+        Console.WriteLine(DrawLine(7));
+        Console.WriteLine(
+            "   Player\tScore");
+        Console.WriteLine(DrawLine(7));
 
         foreach (var pair in ordered)
         {
-            Console.Write($"{pos++}. {pair.Key.Name}\t\t{pair.Value}   ");
+            Console.Write(
+                $"{pos++}. {pair.Key.Name}\t\t{pair.Value}   ");
+
             if (pos == 2)
             {
-                setColor(ConsoleColor.Yellow, ConsoleColor.Red);
+                SetColor(ConsoleColor.Yellow, ConsoleColor.Red);
                 Console.Write("  Winner!");
-                resetColor();
+                ResetColor();
             }
+
             Console.WriteLine();
         }
     }
 
     public void ShowGameInfo(int round, string playerName)
-        => AddMessage(
-                $"= Round {round} - {playerName}'s turn.");
+    {
+        AddMessage(
+            $"= Round {round} - {playerName}'s turn.");
+    }
 
     public int PromptMenu()
     {
         while (true)
         {
-            string? input = ReadString();
-            if (int.TryParse(input, out int result) && result > 0)
+            if (int.TryParse((string?)ReadString(), out int result) && result > 0)
                 return result;
 
-            printError(
+            PrintError(
                 "Please enter a valid number.");
         }
     }
@@ -370,10 +401,13 @@ public class Display : IDisplay
     {
         Clear();
         Console.Write("===== ");
-        setColor(ConsoleColor.Yellow, ConsoleColor.Red);
+        SetColor(
+            ConsoleColor.Yellow,
+            ConsoleColor.Red);
         Console.Write(
             "[ DOM|INO ]");
-        resetColor();
+
+        ResetColor();
         Console.WriteLine(" =====\n");
         Console.WriteLine(
             " 1. Start Game\n 2. Settings\n 3. Exit");
@@ -384,35 +418,80 @@ public class Display : IDisplay
         Clear();
         PrintHeader(
             "Settings");
+
         Console.Write(
             "\n 1. Set Max Players\n 2. Set Max Hand Size\n 3. Back\n\nInsert an option: ");
     }
-    private void showTitle()
-    {
-        int width = Console.WindowWidth;
-        int height = Console.WindowHeight;
-        int _titleHeight = _title.Length;
-        int _titleWidth = _title[0].Length;
-        int centeredX = (width - _titleWidth) / 2;
-        double t = 0;
 
+    private void ShowTitle()
+    {
         Console.CursorVisible = false;
+        string[] lines = new string[]
+        {
+        " _____     ______     __    __     __     __   __     ______    ",
+        "/\\  __-.  /\\  __ \\   /\\ \"-./  \\   /\\ \\   /\\ \"-.\\ \\   /\\  __ \\   ",
+        "\\ \\ \\/\\ \\ \\ \\ \\/\\ \\  \\ \\ \\-./\\ \\  \\ \\ \\  \\ \\ \\-.  \\  \\ \\ \\/\\ \\  ",
+        " \\ \\____-  \\ \\_____\\  \\ \\_\\ \\ \\_\\  \\ \\_\\  \\ \\_\\\"\\_\\  \\ \\_____\\ ",
+        "  \\/____/   \\/_____/   \\/_/  \\/_/   \\/_/   \\/_/ \\/_/   \\/_____/ "
+        };
+
+        int rows = lines.Length;
+        int cols = lines[0].Length;
+
+        // Initialize 2D char array
+        char[,] art = new char[rows, cols];
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                art[r, c] = lines[r][c];  // string to char[,] :contentReference[oaicite:4]{index=4}
+
+        // Initialize phases per column
+        double[] phases = new double[cols];
+        Random rnd = new Random();
+        for (int c = 0; c < cols; c++)
+            phases[c] = rnd.NextDouble() * Math.PI * 2;
+
+        int w = Console.WindowWidth, h = Console.WindowHeight;
+        int baseX = (w - cols) / 2;
+        int baseY = (h - rows) / 2;
+
+        double t = 0;
+        int frame = 0;
 
         while (true)
         {
-            int centerY = (height - _titleHeight) / 2;
-            int offsetY = (int)(Math.Sin(t) * 5);   // amplitude = 5 rows
-            int drawY = centerY + offsetY;
+            Console.SetCursorPosition(0, 0);
 
-            Console.Clear();
-            for (int i = 0; i < _titleHeight; i++)
+            for (int r = 0; r < rows; r++)
             {
-                Console.SetCursorPosition(centeredX, drawY + i);
-                Console.Write(_title[i]);
+                for (int c = 0; c < cols; c++)
+                {
+                    char ch = art[r, c];
+                    if (ch == ' ') continue;
+
+                    double phase = phases[c] + r * 0.2;
+                    int offsetY = (int)(Math.Sin(t + phase) * 2);
+
+                    int x = baseX + c;
+                    int y = baseY + r + offsetY;
+                    if (y < 0 || y >= h) continue;
+
+                    Console.SetCursorPosition(x, y);
+                    Console.ForegroundColor = (ConsoleColor)((c + r + frame) % 15 + 1);
+                    Console.Write(ch);
+                }
             }
+
+            Console.ResetColor();
+
+            if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
+                break;
 
             Thread.Sleep(100);
             t += 0.2;
+            frame++;
         }
+
+        Console.CursorVisible = true;
     }
+
 }

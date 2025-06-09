@@ -1,4 +1,4 @@
-using Domino.Enumerations;
+using Domino.Enums;
 
 namespace Domino.Interfaces;
 

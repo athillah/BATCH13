@@ -1,4 +1,4 @@
-namespace Domino.Enumerations;
+namespace Domino.Enums;
 
 public enum Side
 {

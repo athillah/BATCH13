@@ -1,85 +1,78 @@
 using Domino.Interfaces;
 using Domino.Models;
-using Domino.Enumerations;
+using Domino.Enums;
 using System;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Domino.Controllers;
 
 public class GameController
 {
-    // ReadOnlies ++ Privates
-    private readonly IDeck _deck;
-    private readonly IBoard _board;
-    private readonly List<IPlayer> _players;
-    private readonly Dictionary<IPlayer, List<ICard>> _hand;
-    private readonly List<ICard> _moveOptions = new(); // placablecard b4
+    private IDeck _deck;
+    private IBoard _board;
+    private List<IPlayer> _players;
+    private Dictionary<IPlayer, List<ICard>> _hand;
+    private List<ICard> _moveOptions = new();
 
     private IPlayer? _currentPlayer;
     private Dictionary<IPlayer, int>? _winScore;
 
-    // Actions ++ Publics
-    public Action? OnGameStart;
-    public Action<IPlayer>? OnPlayerTurn;
-    public Action? OnGameOver;
+    public Action? onGameStart;
+    public Action<IPlayer>? onPlayerTurn;
+    public Action? onGameOver;
 
-    public int? LeftEndValue, RightEndValue;
+    public int? LeftEndValue;
+    public int? RightEndValue;
 
-
-    // Unused Diagram's Property
-    // private Side _placementSide;
-    // public bool IsFlipped;
-    // public int ConnectingValue;
-    // public bool CanPlace;
-    // public Side AllowedSide;
-    // public bool NeedsFlip;
-    // private int _playerCount;
-    // private int _maxPlayers;
-
-    // Outside of Class Diagram
-    private int _turnIndex, _round, _passCount;
-    private int _maxHandSize { get; set; }
+    private int _turnIndex;
+    private int _round;
+    private int _passCount;
+    private int _maxHandSize;
     private int _maxDeckSize = 1;
     private Logger? _logger;
 
     public GameController(
-        List<IPlayer> players,
-        IDeck deck,
-        IBoard board,
-        int maxHandSize)
+        List<IPlayer> players, IDeck deck, IBoard board, int maxHandSize)
     {
         _players = players;
         _deck = deck;
         _board = board;
         _hand = new();
         _maxHandSize = maxHandSize;
-
         _logger = new("log.txt");
-        adjustDeckSize();
+
+        AdjustDeckSize();
     }
 
     public void SetupPlayers()
     {
         AssignPlayerNames();
+
         _players.ForEach(
             SetHandCard);
     }
 
     public void AssignPlayerNames()
-        => _players.ForEach(
+    {
+        _players.ForEach(
             p => p.Name = p.Name.Trim());
+    }
 
     public void StartGame()
     {
-        _round = _passCount = 0;
-        OnGameStart?.Invoke();
+        _round = 0;
+        _passCount = 0;
+
+        onGameStart?.Invoke();
     }
 
     public void SetHandCard(IPlayer player)
     {
         var hand = new List<ICard>();
+
         for (int i = 0; i < _maxHandSize && !_deck.IsEmpty(); i++)
             hand.Add(
                 DrawCard());
@@ -88,17 +81,19 @@ public class GameController
     }
 
     public List<ICard> GetHandCard()
-        => _currentPlayer != null
-        && _hand.ContainsKey(_currentPlayer)
-        ? _hand[_currentPlayer]
-        : new List<ICard>();
+    {
+        if (_currentPlayer != null && _hand.ContainsKey(_currentPlayer))
+            return _hand[_currentPlayer];
+
+        else return new List<ICard>();
+    }
 
     public void DetermineFirstPlayer()
     {
-        IPlayer? bestDoublePlayer = null,
-                  bestValuePlayer = null;
-        ICard? bestDoubleCard = null,
-                bestValueCard = null;
+        IPlayer? bestDoublePlayer = null;
+        IPlayer? bestValuePlayer = null;
+        ICard? bestDoubleCard = null;
+        ICard? bestValueCard = null;
 
         foreach (var player in _players)
             foreach (var card in _hand[player])
@@ -131,28 +126,33 @@ public class GameController
                      ?? bestValueCard;
 
         if (firstcard != null)
-            setFirstCard(firstcard);
+            SetFirstCard(firstcard);
     }
 
     public void UpdateEndValues(int value, Side side)
     {
-        if (side == Side.LEFT)
-            LeftEndValue = value;
-        else RightEndValue = value;
+        if (side == Side.RIGHT)
+            RightEndValue = value;
+        else LeftEndValue = value;
     }
 
     public bool CanPlaceCard(List<ICard> hand)
-        => hand.Any(
-            CanConnect);
+    {
+        return hand.Any(CanConnect);
+    }
 
     public bool CanConnect(ICard card)
-        => card.GetValue().Any(
+    {
+        return card.GetValue().Any(
             v => v == LeftEndValue
               || v == RightEndValue);
+    }
 
     public void FlipCard(ICard card)
-        => (card.LeftFaceValue, card.RightFaceValue)
-         = (card.RightFaceValue, card.LeftFaceValue);
+    {
+        (card.LeftFaceValue, card.RightFaceValue)
+      = (card.RightFaceValue, card.LeftFaceValue);
+    }
 
     public void GetPlayableMoves(IPlayer player)
     {
@@ -163,7 +163,9 @@ public class GameController
     }
 
     public List<ICard> CreateCardPlacement()
-        => _moveOptions;
+    {
+        return _moveOptions;
+    }
 
     public void ExecuteMove(ICard card, Side side)
     {
@@ -176,69 +178,82 @@ public class GameController
     public void PlaceCardOnBoard(ICard card, Side side)
     {
         int? endValue = side == Side.LEFT ? LeftEndValue : RightEndValue;
-        if ((side == Side.LEFT &&
-             card.LeftFaceValue == endValue)
-        || (side == Side.RIGHT &&
-             card.RightFaceValue == endValue))
+        if ((side == Side.LEFT && card.LeftFaceValue == endValue)
+        || (side == Side.RIGHT && card.RightFaceValue == endValue))
             FlipCard(card);
 
-        if (side == Side.LEFT)
-            insertLeft(card);
-        else insertRight(card);
+        if (side == Side.RIGHT)
+            InsertRight(card);
+        else InsertLeft(card);
     }
 
     public void NextTurn()
     {
         _round++;
+        _turnIndex = (
+            _turnIndex + 1) % _players.Count;
+        _currentPlayer = _players[_turnIndex];
 
-        _turnIndex = (_turnIndex + 1)
-                   % _players.Count;
-        _currentPlayer = _players
-            [_turnIndex];
-        OnPlayerTurn?.Invoke(_currentPlayer);
+        onPlayerTurn?.Invoke(_currentPlayer);
     }
 
     public void PassTurn()
     {
-        _passCount++; NextTurn();
+        _passCount++;
+        NextTurn();
     }
 
     public void CalculateScores()
     {
         _winScore = new();
+
         foreach (var player in _players)
         {
             int value = GetHandValue(
                 player);
-            SetScore(player, value);
-            player.Score = value;
-
             _winScore[player] = value;
+            
+            SetScore(player, value);
         }
     }
 
-    public Dictionary<IPlayer, int> GetScore()
-        => _winScore ?? new();
+    public Dictionary<IPlayer, int> GetScores()
+    {
+        return _winScore
+            ?? new();
+    }
 
     public int GetRound()
-        => _round;
+    {
+        return _round;
+    }
 
     public void SetScore(IPlayer player, int score)
-        => player.Score = score;
+    {
+        player.Score = score;
+    }
 
     public List<IPlayer> GetPlayers()
-        => _players;
+    {
+        return _players;
+    }
 
     public int GetScore(IPlayer player)
-        => player.Score;
+    {
+        return player.Score;
+    }
 
     public IPlayer GetWinner()
-        => _players.OrderBy(
+    {
+        return _players.OrderBy(
             GetScore).First();
+    }
 
     public bool CheckGameOver()
-        => isFullPass()
-        || isAnyHandEmpty();
+    {
+        return IsFullPass()
+            || IsAnyHandEmpty();
+    }
 
     public void GenerateStandardDeck()
     {
@@ -264,72 +279,76 @@ public class GameController
 
     public ICard DrawCard()
     {
-        var card = _deck.Cards[0];
+        var card =
+        _deck.Cards[0];
         _deck.Cards.RemoveAt(0);
 
         return card;
     }
 
-    // Unused Diagram's Method
-    // private ICard createCard(int id, int left, int right) => new Card(id, left, right);
-    // public ShowBoard()
-    // public void ShowHand()
-    // public int? GetConnectingValue(Side side) => return side == Side.LEFT ? LeftEndValue : RightEndValue;
-    // public PlacementInfo CreatePlacementInfo(bool canPlace, Side side, bool needsFlip)
-    // public int? GetLeftEndValue() => LeftEndValue;
-    // public int? GetRightEndValue() => RightEndValue;
-    // public void TurnOrder() => _currentPlayer = _players[0];
-
-    // Outside of Class Diagram
-    private void adjustDeckSize()
+    private void AdjustDeckSize()
     {
-        _logger?.Log(
-            $"in adjust\n{_players.Count}*{_maxHandSize} >< {28 * _maxDeckSize}");
         while ((_players.Count * _maxHandSize)
                           > 28 * _maxDeckSize)
             _maxDeckSize++;
     }
 
-    private void setFirstCard(ICard card)
+    private void SetFirstCard(ICard card)
     {
         _board.PlayedCards.Add(card);
 
-        LeftEndValue = card
-             .LeftFaceValue;
-        RightEndValue = card
-             .RightFaceValue;
+        UpdateEndValues(
+            card.LeftFaceValue, Side.LEFT);
+        UpdateEndValues(
+            card.RightFaceValue, Side.RIGHT);
 
         _hand[_currentPlayer!]
             .Remove(card);
     }
+
     public IPlayer GetCurrentPlayer()
-        => _currentPlayer
-        ?? throw new InvalidOperationException("No current player set.");
-
-public IBoard GetBoard()
-{
-    if (_board.PlayedCards.Count == 12)
     {
-        var cards = _board.PlayedCards;
-        var first = cards.First();
-        var last = cards.Last();
-
-        cards.Clear();
-        cards.Add(first);
-        cards.Add(last);
+        return _currentPlayer
+            ?? throw new InvalidOperationException("No current player set.");
     }
-    return _board;
-}
 
+    public IBoard GetBoard()
+    {
+        if (_board.PlayedCards.Count == 12)
+            RefreshBoard();
+
+        return _board;
+    }
+
+    private void RefreshBoard()
+    {
+        var board = _board.PlayedCards;
+        var deck = _deck.Cards;
+
+        var first = board.First();
+        var middle = board.Skip(1).Take(board.Count - 2).ToList();
+        var last = board.Last();
+
+        board.Clear();
+        board.Add(first);
+        board.Add(last);
+
+        deck.AddRange(middle);
+        Shuffle();
+    }
 
     public int GetHandValue(IPlayer player)
-        => _hand[player].Sum
-            (c => c.IsDouble()
-        ? (c.LeftFaceValue == 0 ? 20 : c.LeftFaceValue * 2)
-        : c.LeftFaceValue + c.RightFaceValue);
+    {
+        return _hand[player].Sum(
+            c => c.IsDouble() ? (
+                c.LeftFaceValue == 0 ? 20 : c.LeftFaceValue * 2) :
+                c.LeftFaceValue + c.RightFaceValue);
+    }
 
     public List<ICard> GetHandByPlayer(IPlayer player)
-        => _hand[player];
+    {
+        return _hand[player];
+    }
 
     public bool IsPlayable(ICard card, Side side)
     {
@@ -341,7 +360,7 @@ public IBoard GetBoard()
             || card.RightFaceValue == end;
     }
 
-    private void insertLeft(ICard card)
+    private void InsertLeft(ICard card)
     {
         _board.PlayedCards.Insert(0, card);
 
@@ -350,7 +369,7 @@ public IBoard GetBoard()
             Side.LEFT);
     }
 
-    private void insertRight(ICard card)
+    private void InsertRight(ICard card)
     {
         _board.PlayedCards.Add(card);
 
@@ -359,36 +378,33 @@ public IBoard GetBoard()
             Side.RIGHT);
     }
 
-    private bool isFullPass()
-        => _passCount
-        >= _players.Count;
+    private bool IsFullPass()
+    {
+        return _passCount
+            >= _players.Count;
+    }
 
-    private bool isAnyHandEmpty()
-        => _players.Any(
+    private bool IsAnyHandEmpty()
+    {
+        return _players.Any(
             p => _hand[p].
             Count == 0);
-
+    }
 
     private class Logger
     {
-        private readonly string _filepath;
+        private string _filepath;
         public Logger(string filepath)
         {
             _filepath = filepath;
             using (var fs = new FileStream(
-                _filepath, FileMode.Create, FileAccess.Write))
-            { }
+                _filepath, FileMode.Create, FileAccess.Write)) { }
         }
         public void Log(string log)
         {
-            using (
-                var fs = new FileStream(
-                    _filepath, FileMode.Append, FileAccess.Write))
-            using (
-                var writer = new StreamWriter(fs, Encoding.UTF8))
-            {
+            using (var fs = new FileStream(_filepath, FileMode.Append, FileAccess.Write))
+            using (var writer = new StreamWriter(fs, Encoding.UTF8))
                 writer.WriteLine(log);
-            }
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Domino")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f76ec2ddea214bbfea5e2166c6d2ec34fdbe4e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02db4c0f39c038c7f18c8a7f7982f70ae0d5dc41")]
 [assembly: System.Reflection.AssemblyProductAttribute("Domino")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Domino")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

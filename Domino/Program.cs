@@ -1,7 +1,7 @@
-using Domino.Controllers;
+﻿using Domino.Controllers;
 using Domino.Interfaces;
 using Domino.Models;
-using Domino.Enumerations;
+using Domino.Enums;
 using System;
 
 class Program
@@ -128,20 +128,20 @@ class Program
     private static void SetupGame(
         IDisplay screen, GameController logic)
     {
-        logic.OnGameStart += () => screen.DirectMessage("Generating Deck");
-        logic.OnGameStart += logic.GenerateStandardDeck;
-        logic.OnGameStart += () => screen.LoadDot(3);
-        logic.OnGameStart += () => screen.DirectMessage("Shuffling");
-        logic.OnGameStart += logic.Shuffle;
-        logic.OnGameStart += () => screen.LoadDot(3);
-        logic.OnGameStart += logic.SetupPlayers;
-        logic.OnGameStart += logic.DetermineFirstPlayer;
-        logic.OnGameStart += () => screen.AddMessage(
+        logic.onGameStart += () => screen.DirectMessage("Generating Deck");
+        logic.onGameStart += logic.GenerateStandardDeck;
+        logic.onGameStart += () => screen.LoadDot(3);
+        logic.onGameStart += () => screen.DirectMessage("Shuffling");
+        logic.onGameStart += logic.Shuffle;
+        logic.onGameStart += () => screen.LoadDot(3);
+        logic.onGameStart += logic.SetupPlayers;
+        logic.onGameStart += logic.DetermineFirstPlayer;
+        logic.onGameStart += () => screen.AddMessage(
             $"= {logic.GetCurrentPlayer().Name} starts with [{logic.LeftEndValue}|{logic.RightEndValue}].");
-        logic.OnGameStart += logic.NextTurn;
+        logic.onGameStart += logic.NextTurn;
 
-        logic.OnPlayerTurn += logic.GetPlayableMoves;
-        logic.OnGameOver += logic.CalculateScores;
+        logic.onPlayerTurn += logic.GetPlayableMoves;
+        logic.onGameOver += logic.CalculateScores;
 
         logic.StartGame();
     }
@@ -205,7 +205,7 @@ class Program
     private static void EndGame(
         IDisplay screen, GameController logic)
     {
-        logic.OnGameOver?.Invoke();
+        logic.onGameOver?.Invoke();
 
         screen.Clear();
         screen.AddMessage(
@@ -217,7 +217,7 @@ class Program
         foreach (IPlayer player in logic.GetPlayers())
         {
             screen.DirectMessage(
-                $"= {player.Name} has {player.Score} points of remaining cards.\n");
+                $"= {player.Name} has {player.Score} points of remaining cards.");
             screen.ShowHand(
                 player.Name,
                 logic.GetHandByPlayer(player),
@@ -226,7 +226,7 @@ class Program
         }
 
         screen.ShowScore(
-            logic.GetScore());
+            logic.GetScores());
         screen.DirectMessage(
             "\nThank you for playing!\nPress any key to exit...");
 

@@ -12,9 +12,6 @@ public class Card : ICard
         RightFaceValue = rightFaceValue;
         LeftFaceValue = leftFaceValue;
     }
-    public bool IsDouble()
-    {
-        return RightFaceValue == LeftFaceValue;
-    }
+    public bool IsDouble() => RightFaceValue == LeftFaceValue;
     public IEnumerable<int> GetValue() => new[] { LeftFaceValue, RightFaceValue };
 }

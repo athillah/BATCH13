@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Program.cs" />
-    <Content Include="Enumerations\Side.cs" />
+    <Content Include="Enums\Side.cs" />
     <Content Include="Interfaces\IPLayer.cs" />
     <Content Include="Interfaces\IDeck.cs" />
     <Content Include="Interfaces\ICard.cs" />
