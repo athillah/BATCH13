@@ -15,6 +15,7 @@ public class GameController
     private readonly IBoard _board;
     private readonly List<IPlayer> _players;
     private readonly Dictionary<IPlayer, List<ICard>> _hand;
+    private readonly List<ICard> _moveOptions = new(); // placablecard b4
 
     private IPlayer? _currentPlayer;
     private Dictionary<IPlayer, int>? _winScore;
@@ -36,10 +37,8 @@ public class GameController
     // public bool NeedsFlip;
     // private int _playerCount;
     // private int _maxPlayers;
-    // private Dictionary<int, ICard> moveOptions
 
     // Outside of Class Diagram
-    private readonly List<ICard> _placableCards = new();
     private int _turnIndex, _round, _passCount;
     private int _maxHandSize { get; set; }
     private int _maxDeckSize = 1;
@@ -157,14 +156,14 @@ public class GameController
 
     public void GetPlayableMoves(IPlayer player)
     {
-        _placableCards.Clear();
-        _placableCards.AddRange(
+        _moveOptions.Clear();
+        _moveOptions.AddRange(
             _hand[player]
             .Where(CanConnect));
     }
 
     public List<ICard> CreateCardPlacement()
-        => _placableCards;
+        => _moveOptions;
 
     public void ExecuteMove(ICard card, Side side)
     {
@@ -211,6 +210,7 @@ public class GameController
         {
             int value = GetHandValue(
                 player);
+            SetScore(player, value);
             player.Score = value;
 
             _winScore[player] = value;
@@ -222,6 +222,9 @@ public class GameController
 
     public int GetRound()
         => _round;
+
+    public void SetScore(IPlayer player, int score)
+        => player.Score = score;
 
     public List<IPlayer> GetPlayers()
         => _players;
@@ -269,7 +272,6 @@ public class GameController
 
     // Unused Diagram's Method
     // private ICard createCard(int id, int left, int right) => new Card(id, left, right);
-    // public void SetScore(IPlayer player, int score) => player.Score = score;
     // public ShowBoard()
     // public void ShowHand()
     // public int? GetConnectingValue(Side side) => return side == Side.LEFT ? LeftEndValue : RightEndValue;
