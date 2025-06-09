@@ -137,7 +137,7 @@ class Program
         logic.onGameStart += logic.SetupPlayers;
         logic.onGameStart += logic.DetermineFirstPlayer;
         logic.onGameStart += () => screen.AddMessage(
-            $"= {logic.GetCurrentPlayer().Name} starts with [{logic.LeftEndValue}|{logic.RightEndValue}].");
+            $"█ {logic.GetCurrentPlayer().Name} starts with [{logic.LeftEndValue}|{logic.RightEndValue}].");
         logic.onGameStart += logic.NextTurn;
 
         logic.onPlayerTurn += logic.GetPlayableMoves;
@@ -180,7 +180,7 @@ class Program
                     {
                         logic.ExecuteMove(card, side);
                         screen.AddMessage(
-                            $"= {player.Name} placed [{card.LeftFaceValue}|{card.RightFaceValue}] on the {side} side.");
+                            $"█ {player.Name} placed [{card.LeftFaceValue}|{card.RightFaceValue}] on the {side} side.");
 
                         logic.NextTurn();
                         break;
@@ -195,7 +195,7 @@ class Program
                     "No playable cards available. \nPassing turn");
                 screen.LoadDot(3);
                 screen.AddMessage(
-                    $"= {player.Name} passed their turn.");
+                    $"█ {player.Name} passed their turn.");
                 logic.PassTurn();
             }
             screen.Wait();
@@ -211,13 +211,13 @@ class Program
         screen.AddMessage(
             "Game Over!!!");
         screen.AddMessage(
-            $"= {logic.GetWinner().Name} wins with the least point remaining {logic.GetWinner().Score}.");
+            $"█ {logic.GetWinner().Name} wins with the least point remaining {logic.GetWinner().Score}.");
         screen.ShowMessage();
 
         foreach (IPlayer player in logic.GetPlayers())
         {
             screen.DirectMessage(
-                $"= {player.Name} has {player.Score} points of remaining cards.");
+                $"█ {player.Name} has {player.Score} points of remaining cards.");
             screen.ShowHand(
                 player.Name,
                 logic.GetHandByPlayer(player),

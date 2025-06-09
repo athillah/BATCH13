@@ -38,7 +38,6 @@ public class Display : IDisplay
     {
         Clear();
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-        ShowTitle();
     }
 
     public ICard PromptCardId(List<ICard> playableCards)
@@ -154,16 +153,18 @@ public class Display : IDisplay
                 ResetColor();
             }
             else Console.Write("         ");
+
             if (card != cards.Last())
                 Console.Write(" ");
-            else Console.WriteLine("█");
-        }
-        Console.WriteLine();
-
-        PrintGlow(" play",
+            else
+            {
+                Console.Write("█");
+                PrintGlow(" play",
                     ConsoleColor.Yellow);
-        PrintGlow("able\n\n",
+                PrintGlow("able\n\n",
                     ConsoleColor.Cyan);
+            }
+        }
     }
 
     private void SetColor(ConsoleColor bg, ConsoleColor fg)
@@ -382,7 +383,7 @@ public class Display : IDisplay
     public void ShowGameInfo(int round, string playerName)
     {
         AddMessage(
-            $"= Round {round} - {playerName}'s turn.");
+            $"█ Round {round} - {playerName}'s turn.");
     }
 
     public int PromptMenu()
@@ -421,77 +422,6 @@ public class Display : IDisplay
 
         Console.Write(
             "\n 1. Set Max Players\n 2. Set Max Hand Size\n 3. Back\n\nInsert an option: ");
-    }
-
-    private void ShowTitle()
-    {
-        Console.CursorVisible = false;
-        string[] lines = new string[]
-        {
-        " _____     ______     __    __     __     __   __     ______    ",
-        "/\\  __-.  /\\  __ \\   /\\ \"-./  \\   /\\ \\   /\\ \"-.\\ \\   /\\  __ \\   ",
-        "\\ \\ \\/\\ \\ \\ \\ \\/\\ \\  \\ \\ \\-./\\ \\  \\ \\ \\  \\ \\ \\-.  \\  \\ \\ \\/\\ \\  ",
-        " \\ \\____-  \\ \\_____\\  \\ \\_\\ \\ \\_\\  \\ \\_\\  \\ \\_\\\"\\_\\  \\ \\_____\\ ",
-        "  \\/____/   \\/_____/   \\/_/  \\/_/   \\/_/   \\/_/ \\/_/   \\/_____/ "
-        };
-
-        int rows = lines.Length;
-        int cols = lines[0].Length;
-
-        // Initialize 2D char array
-        char[,] art = new char[rows, cols];
-        for (int r = 0; r < rows; r++)
-            for (int c = 0; c < cols; c++)
-                art[r, c] = lines[r][c];  // string to char[,] :contentReference[oaicite:4]{index=4}
-
-        // Initialize phases per column
-        double[] phases = new double[cols];
-        Random rnd = new Random();
-        for (int c = 0; c < cols; c++)
-            phases[c] = rnd.NextDouble() * Math.PI * 2;
-
-        int w = Console.WindowWidth, h = Console.WindowHeight;
-        int baseX = (w - cols) / 2;
-        int baseY = (h - rows) / 2;
-
-        double t = 0;
-        int frame = 0;
-
-        while (true)
-        {
-            Console.SetCursorPosition(0, 0);
-
-            for (int r = 0; r < rows; r++)
-            {
-                for (int c = 0; c < cols; c++)
-                {
-                    char ch = art[r, c];
-                    if (ch == ' ') continue;
-
-                    double phase = phases[c] + r * 0.2;
-                    int offsetY = (int)(Math.Sin(t + phase) * 2);
-
-                    int x = baseX + c;
-                    int y = baseY + r + offsetY;
-                    if (y < 0 || y >= h) continue;
-
-                    Console.SetCursorPosition(x, y);
-                    Console.ForegroundColor = (ConsoleColor)((c + r + frame) % 15 + 1);
-                    Console.Write(ch);
-                }
-            }
-
-            Console.ResetColor();
-
-            if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
-                break;
-
-            Thread.Sleep(100);
-            t += 0.2;
-            frame++;
-        }
-
-        Console.CursorVisible = true;
     }
 
 }
