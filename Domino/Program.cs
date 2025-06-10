@@ -22,28 +22,9 @@ class Program
         IBoard board = new Board();
         GameController logic = new GameController(players, deck, board, maxHandSize);
 
-        while (true)
-        {
-            SetupGame(screen, logic);
-            PlayGame(screen, logic);
-            EndGame(screen, logic);
-
-            screen.DirectMessage(
-                "Play again?\n 1. AGAIN\n 2. nah\nEnter: ");
-            int again = screen.PromptMenu();
-            switch (again)
-            {
-                case 1:
-                    break;
-                    
-                case 2:
-                    screen.DirectMessage(
-                        "Thank you for playing :)\n");
-                    screen.Wait();
-                    Environment.Exit(0);
-                    break;
-            }
-        }
+        SetupGame(screen, logic);
+        PlayGame(screen, logic);
+        EndGame(screen, logic);
     }
 
     private static void ShowMainMenu(IDisplay screen, ref int maxPlayer, ref int maxHandSize)
