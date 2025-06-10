@@ -14,23 +14,39 @@ class Program
         IDisplay screen = new Display();
         screen.Wait();
 
-        ShowMainMenu(
-            screen, ref maxPlayer, ref maxHandSize);
+        ShowMainMenu(screen, ref maxPlayer, ref maxHandSize);
 
         List<IPlayer> players = CollectPlayers(screen, maxPlayer);
 
         IDeck deck = new Deck();
         IBoard board = new Board();
-        GameController logic = new GameController(
-            players, deck, board, maxHandSize);
+        GameController logic = new GameController(players, deck, board, maxHandSize);
 
-        SetupGame(screen, logic);
-        PlayGame(screen, logic);
-        EndGame(screen, logic);
+        while (true)
+        {
+            SetupGame(screen, logic);
+            PlayGame(screen, logic);
+            EndGame(screen, logic);
+
+            screen.DirectMessage(
+                "Play again?\n 1. AGAIN\n 2. nah\nEnter: ");
+            int again = screen.PromptMenu();
+            switch (again)
+            {
+                case 1:
+                    break;
+                    
+                case 2:
+                    screen.DirectMessage(
+                        "Thank you for playing :)\n");
+                    screen.Wait();
+                    Environment.Exit(0);
+                    break;
+            }
+        }
     }
 
-    private static void ShowMainMenu(
-        IDisplay screen, ref int maxPlayer, ref int maxHandSize)
+    private static void ShowMainMenu(IDisplay screen, ref int maxPlayer, ref int maxHandSize)
     {
         bool start = false;
         while (!start)
@@ -55,8 +71,8 @@ class Program
                     screen.Clear();
                     screen.DirectMessage(
                         "Thank you ^-^\n\nPress any key to exit...");
-
-                    Environment.Exit(0); break;
+                    Environment.Exit(0); ;
+                    break;
 
                 default:
                     screen.DirectMessage(
@@ -66,8 +82,7 @@ class Program
         }
     }
 
-    private static void ConfigureGame(
-        IDisplay screen, ref int maxPlayer, ref int maxHandSize)
+    private static void ConfigureGame(IDisplay screen, ref int maxPlayer, ref int maxHandSize)
     {
         bool leave = false;
         while (!leave)
@@ -100,8 +115,7 @@ class Program
         }
     }
 
-    private static List<IPlayer> CollectPlayers(
-        IDisplay screen, int maxPlayer)
+    private static List<IPlayer> CollectPlayers(IDisplay screen, int maxPlayer)
     {
         List<IPlayer> players = new List<IPlayer>();
         for (int i = 0; i < maxPlayer; i++)
@@ -124,9 +138,42 @@ class Program
         }
         return players;
     }
+    private static void Unsubscribe(IDisplay screen, GameController logic)
+    {
+        logic.onGameStart -= () => screen.DirectMessage("Generating Deck");
+        logic.onGameStart -= logic.GenerateStandardDeck;
+        logic.onGameStart -= () => screen.LoadDot(3);
+        logic.onGameStart -= () => screen.DirectMessage("Shuffling");
+        logic.onGameStart -= logic.Shuffle;
+        logic.onGameStart -= () => screen.LoadDot(3);
+        logic.onGameStart -= logic.SetupPlayers;
+        logic.onGameStart -= logic.DetermineFirstPlayer;
+        logic.onGameStart -= () => screen.AddMessage(
+            $"█ {logic.GetCurrentPlayer().Name} starts with [{logic.LeftEndValue}|{logic.RightEndValue}].");
+        logic.onGameStart -= () => logic.StartGame();
+        logic.onGameStart -= logic.NextTurn;
 
-    private static void SetupGame(
-        IDisplay screen, GameController logic)
+        logic.onPlayerTurn -= logic.GetPlayableMoves;
+        logic.onPlayerTurn -= (player) => screen.Clear();
+        logic.onPlayerTurn -= (player) => screen.ShowGameInfo(
+            logic.GetRound(), player.Name);
+        logic.onPlayerTurn -= (player) => screen.ShowMessage();
+        logic.onPlayerTurn -= (player) => screen.ShowBoard(logic.GetBoard());
+        logic.onPlayerTurn -= (player) => screen.ShowHand(
+            player.Name, logic.GetHandCard(), logic.CreateCardPlacement());
+        logic.onPlayerTurn -= (player) => screen.ShowHint(
+                logic.GetHandCard(), logic.CreateCardPlacement());
+
+        logic.onGameOver -= logic.CalculateScores;
+        logic.onGameOver -= () => screen.Clear();
+        logic.onGameOver -= () => screen.AddMessage("█ Game Over!!!");
+        logic.onGameOver -= () => screen.AddMessage(
+            $"█ {logic.GetWinner().Name} wins with the least point remaining {logic.GetWinner().Score}.");
+        logic.onGameOver -= () => screen.ShowMessage();
+        logic.onGameOver -= () => logic.Clear();
+    }
+
+    private static void Subscribe(IDisplay screen, GameController logic)
     {
         logic.onGameStart += () => screen.DirectMessage("Generating Deck");
         logic.onGameStart += logic.GenerateStandardDeck;
@@ -138,36 +185,41 @@ class Program
         logic.onGameStart += logic.DetermineFirstPlayer;
         logic.onGameStart += () => screen.AddMessage(
             $"█ {logic.GetCurrentPlayer().Name} starts with [{logic.LeftEndValue}|{logic.RightEndValue}].");
+        logic.onGameStart += () => logic.StartGame();
         logic.onGameStart += logic.NextTurn;
 
         logic.onPlayerTurn += logic.GetPlayableMoves;
-        logic.onGameOver += logic.CalculateScores;
+        logic.onPlayerTurn += (player) => screen.Clear();
+        logic.onPlayerTurn += (player) => screen.ShowGameInfo(
+            logic.GetRound(), player.Name);
+        logic.onPlayerTurn += (player) => screen.ShowMessage();
+        logic.onPlayerTurn += (player) => screen.ShowBoard(logic.GetBoard());
+        logic.onPlayerTurn += (player) => screen.ShowHand(
+            player.Name, logic.GetHandCard(), logic.CreateCardPlacement());
+        logic.onPlayerTurn += (player) => screen.ShowHint(
+                logic.GetHandCard(), logic.CreateCardPlacement());
 
-        logic.StartGame();
+        logic.onGameOver += logic.CalculateScores;
+        logic.onGameOver += () => screen.Clear();
+        logic.onGameOver += () => screen.AddMessage("█ Game Over!!!");
+        logic.onGameOver += () => screen.AddMessage(
+            $"█ {logic.GetWinner().Name} wins with the least point remaining {logic.GetWinner().Score}.");
+        logic.onGameOver += () => screen.ShowMessage();
+        logic.onGameOver += () => logic.Clear();
     }
 
-    private static void PlayGame(
-        IDisplay screen, GameController logic)
+    private static void SetupGame(IDisplay screen, GameController logic)
     {
-        while (
-            !logic.CheckGameOver())
+        Subscribe(screen, logic);
+        logic.onGameStart?.Invoke();
+    }
+
+    private static void PlayGame(IDisplay screen, GameController logic)
+    {
+        while (!logic.CheckGameOver())
         {
             IPlayer player = logic.GetCurrentPlayer();
-
-            screen.Clear();
-
-            screen.ShowGameInfo(
-                logic.GetRound(), player.Name);
-            screen.ShowMessage();
-            screen.ShowBoard(
-                logic.GetBoard());
-            screen.ShowHand(
-                player.Name,
-                logic.GetHandCard(),
-                logic.CreateCardPlacement());
-            screen.ShowHint(
-                logic.GetHandCard(),
-                logic.CreateCardPlacement());
+            logic.onPlayerTurn?.Invoke(logic.GetCurrentPlayer());
 
             if (logic.CanPlaceCard(logic.GetHandCard()))
             {
@@ -202,17 +254,9 @@ class Program
         }
     }
 
-    private static void EndGame(
-        IDisplay screen, GameController logic)
+    private static void EndGame(IDisplay screen, GameController logic)
     {
         logic.onGameOver?.Invoke();
-
-        screen.Clear();
-        screen.AddMessage(
-            "Game Over!!!");
-        screen.AddMessage(
-            $"█ {logic.GetWinner().Name} wins with the least point remaining {logic.GetWinner().Score}.");
-        screen.ShowMessage();
 
         foreach (IPlayer player in logic.GetPlayers())
         {
@@ -228,8 +272,8 @@ class Program
         screen.ShowScore(
             logic.GetScores());
         screen.DirectMessage(
-            "\nThank you for playing!\nPress any key to exit...");
+            "\nThank you for playing!\n");
 
-        Console.ReadKey();
+        Unsubscribe(screen, logic);
     }
 }

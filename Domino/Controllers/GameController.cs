@@ -49,24 +49,14 @@ public class GameController
 
     public void SetupPlayers()
     {
-        AssignPlayerNames();
-
         _players.ForEach(
             SetHandCard);
-    }
-
-    public void AssignPlayerNames()
-    {
-        _players.ForEach(
-            p => p.Name = p.Name.Trim());
     }
 
     public void StartGame()
     {
         _round = 0;
         _passCount = 0;
-
-        onGameStart?.Invoke();
     }
 
     public void SetHandCard(IPlayer player)
@@ -82,10 +72,7 @@ public class GameController
 
     public List<ICard> GetHandCard()
     {
-        if (_currentPlayer != null && _hand.ContainsKey(_currentPlayer))
-            return _hand[_currentPlayer];
-
-        else return new List<ICard>();
+        return _hand[_currentPlayer!];
     }
 
     public void DetermineFirstPlayer()
@@ -125,8 +112,7 @@ public class GameController
         var firstcard = bestDoubleCard
                      ?? bestValueCard;
 
-        if (firstcard != null)
-            SetFirstCard(firstcard);
+        SetFirstCard(firstcard!);
     }
 
     public void UpdateEndValues(int value, Side side)
@@ -193,8 +179,6 @@ public class GameController
         _turnIndex = (
             _turnIndex + 1) % _players.Count;
         _currentPlayer = _players[_turnIndex];
-
-        onPlayerTurn?.Invoke(_currentPlayer);
     }
 
     public void PassTurn()
@@ -212,7 +196,7 @@ public class GameController
             int value = GetHandValue(
                 player);
             _winScore[player] = value;
-            
+
             SetScore(player, value);
         }
     }
@@ -406,5 +390,15 @@ public class GameController
             using (var writer = new StreamWriter(fs, Encoding.UTF8))
                 writer.WriteLine(log);
         }
+    }
+
+    public void Clear()
+    {
+        _deck.Cards.Clear();
+        _board.PlayedCards.Clear();
+        _players.Clear();
+        _hand.Clear();
+        _moveOptions.Clear();
+        _winScore?.Clear();
     }
 }
