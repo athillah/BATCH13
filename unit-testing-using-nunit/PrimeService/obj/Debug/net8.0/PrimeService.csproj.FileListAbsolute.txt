@@ -1,0 +1,12 @@
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\bin\Debug\net8.0\PrimeService.deps.json
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\bin\Debug\net8.0\PrimeService.dll
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\bin\Debug\net8.0\PrimeService.pdb
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\PrimeService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\PrimeService.AssemblyInfoInputs.cache
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\PrimeService.AssemblyInfo.cs
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\PrimeService.csproj.CoreCompileInputs.cache
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\PrimeService.sourcelink.json
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\PrimeService.dll
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\refint\PrimeService.dll
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\PrimeService.pdb
+C:\Athillah\BATCH13\unit-testing-using-nunit\PrimeService\obj\Debug\net8.0\ref\PrimeService.dll
