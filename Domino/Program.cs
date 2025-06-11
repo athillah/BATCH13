@@ -254,6 +254,7 @@ class Program
             logic.GetScores());
         screen.DirectMessage(
             "\nThank you for playing!\n");
+        screen.Wait();
 
         Unsubscribe(screen, logic);
     }
