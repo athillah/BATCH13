@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Create / Edit";
+}
+
+@model FilmMVC.Models.Film
+
+<div class="text-center">
+    <h1 class="display-4">Create or Edit Kino</h1>
+</div>
+
+<form asp-action="SubmitForm" asp-controller="Home">
+    <input type="hidden" asp-for="Id" />
+    <label class="mt-4">Title</label> <input class="form-control" type="text" placeholder="e.g The Batman" asp-for="Title"/>
+    <label class="mt-4">Director</label> <input class="form-control" type="text" placeholder="e.g Matt Reeves" asp-for="Director"/>
+    <label class="mt-4">Year</label> <input class="form-control" type="number" placeholder="e.g 2022" asp-for="Year" min="1900" max="@DateTime.Now.Year"/>
+    <label class="mt-4">Rate</label> <input class="form-control" type="number" placeholder="from 1 to 10" asp-for="Rate" step="0.1" min="0" max="10"/>
+    <button class="btn btn-primary mt-4" type="submit">Create new</button>
+</form>
