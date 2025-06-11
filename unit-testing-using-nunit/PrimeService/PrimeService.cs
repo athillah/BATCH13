@@ -32,12 +32,32 @@
 
         public int[] FindPrimesUpTo(int limit)
         {
-            throw new NotImplementedException("Method not implemented yet");
+            var result = new List<int>();
+
+            for (int i = 0; i <= limit; i++)
+                if (IsPrime(i))
+                    result.Add(i);
+
+            return result.ToArray();
         }
 
         public int GetNextPrime(int number)
         {
-            throw new NotImplementedException("Method not implemented yet");
+            int i = 2;
+
+            if (number <= 1)
+                return i;
+            
+            int limit = number + 10;
+            bool flag = false;
+            for (i = 2; i <= limit; i++)
+            {
+                if (IsPrime(i) && flag)
+                    return i;
+                if (i == number)
+                    flag = true;
+            }
+            return 0;
         }
     }
 }
