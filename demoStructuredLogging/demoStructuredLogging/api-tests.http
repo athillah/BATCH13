@@ -1,0 +1,151 @@
+### Variables
+@baseUrl = https://localhost:7000
+@contentType = application/json
+
+### Health Check
+GET {{baseUrl}}/health
+
+### Create User
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "username": "john.doe",
+  "email": "john.doe@example.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "password": "password123"
+}
+
+### Create Another User
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "username": "jane.smith",
+  "email": "jane.smith@example.com",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "password": "password123"
+}
+
+### User Login - Success
+POST {{baseUrl}}/api/users/login
+Content-Type: {{contentType}}
+
+{
+  "username": "john.doe",
+  "password": "password123"
+}
+
+### User Login - Failure
+POST {{baseUrl}}/api/users/login
+Content-Type: {{contentType}}
+
+{
+  "username": "john.doe",
+  "password": "wrongpassword"
+}
+
+### Get User by ID
+GET {{baseUrl}}/api/users/1
+
+### Get All Users
+GET {{baseUrl}}/api/users?skip=0&take=10
+
+### Get Users with Filter
+GET {{baseUrl}}/api/users?skip=0&take=10&filter=john
+
+### Create Order
+POST {{baseUrl}}/api/orders
+Content-Type: {{contentType}}
+
+{
+  "userId": 1,
+  "items": [
+    {
+      "id": 1,
+      "productName": "Laptop",
+      "price": 999.99,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "productName": "Mouse",
+      "price": 25.50,
+      "quantity": 2
+    }
+  ]
+}
+
+### Get Order by ID
+GET {{baseUrl}}/api/orders/1
+
+### Get Orders by User
+GET {{baseUrl}}/api/orders/user/1?skip=0&take=10
+
+### Process Payment
+POST {{baseUrl}}/api/orders/1/pay
+Content-Type: {{contentType}}
+
+{
+  "paymentMethod": "CreditCard",
+  "paymentDetails": "****-****-****-1234"
+}
+
+### Process Shipping
+POST {{baseUrl}}/api/orders/1/ship
+Content-Type: {{contentType}}
+
+{
+  "shippingAddress": "123 Main St, Anytown, USA",
+  "shippingMethod": "Standard"
+}
+
+### Error Scenarios
+
+### Create User with Duplicate Username
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "username": "john.doe",
+  "email": "another@example.com",
+  "firstName": "Another",
+  "lastName": "User",
+  "password": "password123"
+}
+
+### Create Order for Non-existent User
+POST {{baseUrl}}/api/orders
+Content-Type: {{contentType}}
+
+{
+  "userId": 999,
+  "items": [
+    {
+      "id": 1,
+      "productName": "Product",
+      "price": 10.00,
+      "quantity": 1
+    }
+  ]
+}
+
+### Create Order with No Items
+POST {{baseUrl}}/api/orders
+Content-Type: {{contentType}}
+
+{
+  "userId": 1,
+  "items": []
+}
+
+### Process Payment for Non-existent Order
+POST {{baseUrl}}/api/orders/999/pay
+Content-Type: {{contentType}}
+
+{
+  "paymentMethod": "CreditCard",
+  "paymentDetails": "****-****-****-1234"
+}
