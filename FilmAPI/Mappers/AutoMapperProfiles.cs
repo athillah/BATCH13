@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using FilmAPI.Dtos.Film;
+using FilmAPI.DTOs;
 using FilmAPI.Models;
 
 namespace FilmAPI.Mappers
@@ -12,7 +12,7 @@ namespace FilmAPI.Mappers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Film, FilmDto>().ReverseMap();
+            CreateMap<Film, FilmDTO>().ReverseMap();
         }
     }
 }

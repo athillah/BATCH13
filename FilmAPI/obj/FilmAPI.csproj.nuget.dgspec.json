@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Athillah\\BATCH13\\Day18\\FilmAPI\\FilmAPI.csproj": {}
+    "C:\\Athillah\\BATCH13\\FilmAPI\\FilmAPI.csproj": {}
   },
   "projects": {
-    "C:\\Athillah\\BATCH13\\Day18\\FilmAPI\\FilmAPI.csproj": {
+    "C:\\Athillah\\BATCH13\\FilmAPI\\FilmAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Athillah\\BATCH13\\Day18\\FilmAPI\\FilmAPI.csproj",
+        "projectUniqueName": "C:\\Athillah\\BATCH13\\FilmAPI\\FilmAPI.csproj",
         "projectName": "FilmAPI",
-        "projectPath": "C:\\Athillah\\BATCH13\\Day18\\FilmAPI\\FilmAPI.csproj",
+        "projectPath": "C:\\Athillah\\BATCH13\\FilmAPI\\FilmAPI.csproj",
         "packagesPath": "C:\\Users\\SE-86\\.nuget\\packages\\",
-        "outputPath": "C:\\Athillah\\BATCH13\\Day18\\FilmAPI\\obj\\",
+        "outputPath": "C:\\Athillah\\BATCH13\\FilmAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\SE-86\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,6 +43,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
