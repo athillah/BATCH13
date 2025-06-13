@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FilmAPI.Models;
 
-namespace FilmAPI.Models
+namespace FilmAPI.DTOs
 {
-    public class Review
+    public class ReviewDTO
     {
         public int Id { get; set; }
         public string Content { get; set; } = string.Empty;
@@ -13,6 +14,5 @@ namespace FilmAPI.Models
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public int FilmId { get; set; }
-        public Film? Film { get; set; }
     }
 }

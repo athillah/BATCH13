@@ -11,7 +11,7 @@ namespace FilmAPI.DTOs
         public int? Year { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? Director { get; set; } = string.Empty;
-        // Comments
+        public List<ReviewDTO>? Reviews { get; set; }
     }
     public class CreateFilmRequestDTO
     {

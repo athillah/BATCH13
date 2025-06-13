@@ -16,7 +16,9 @@ namespace FilmAPI.Mappers
                 Id = filmModel.Id,
                 Year = filmModel.Year,
                 Title = filmModel.Title,
-                Director = filmModel.Director
+                Director = filmModel.Director,
+                Reviews = filmModel.Reviews.Select(
+                    r => r.ToReviewDTO()).ToList()
             };
         }
         public static Film ToFilmFromCreateDTO(this CreateFilmRequestDTO filmDTO)
@@ -26,7 +28,7 @@ namespace FilmAPI.Mappers
                 Year = filmDTO.Year,
                 Title = filmDTO.Title,
                 Director = filmDTO.Director
-            }; 
+            };
         }
     }
 }
