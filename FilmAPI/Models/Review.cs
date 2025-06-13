@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FilmAPI.Models
@@ -13,6 +14,8 @@ namespace FilmAPI.Models
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public int FilmId { get; set; }
+        
+        [JsonIgnore]
         public Film? Film { get; set; }
     }
 }

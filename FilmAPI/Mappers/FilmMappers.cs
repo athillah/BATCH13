@@ -9,19 +9,25 @@ namespace FilmAPI.Mappers
 {
     public static class FilmMappers
     {
-        public static FilmDTO ToFilmDTO(this Film filmModel)
+        public static FilmDTO ToFilmDTO(this Film film)
         {
             return new FilmDTO
             {
-                Id = filmModel.Id,
-                Year = filmModel.Year,
-                Title = filmModel.Title,
-                Director = filmModel.Director,
-                Reviews = filmModel.Reviews.Select(
-                    r => r.ToReviewDTO()).ToList()
+                Id = film.Id,
+                Year = film.Year,
+                Title = film.Title,
+                Director = film.Director,
+                Reviews = film.Reviews.Select(
+                    r => new ReviewOnFilmDTO
+                    {
+                        Id = r.Id,
+                        Content = r.Content,
+                        Rate = r.Rate,
+                        CreatedOn = r.CreatedOn
+                    }).ToList()
             };
         }
-        public static Film ToFilmFromCreateDTO(this CreateFilmRequestDTO filmDTO)
+        public static Film ToFilmFromCreate(this CreateFilmRequestDTO filmDTO)
         {
             return new Film
             {

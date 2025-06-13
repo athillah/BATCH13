@@ -15,16 +15,19 @@ namespace FilmAPI.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        private IReviewRepository _repo;
-        public ReviewController(IReviewRepository repo)
+        private IReviewRepository _reviewRepo;
+        private IFilmRepository _filmRepo;
+        public ReviewController(
+            IReviewRepository reviewRepo, IFilmRepository filmRepo)
         {
-            _repo = repo;
+            _reviewRepo = reviewRepo;
+            _filmRepo = filmRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var reviews = await _repo.GetAllAsync();
+            var reviews = await _reviewRepo.GetAllAsync();
             var reviewDTO = reviews.Select(
                 r => r.ToReviewDTO());
 
@@ -34,7 +37,7 @@ namespace FilmAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var review = await _repo.GetByIdAsync(id);
+            var review = await _reviewRepo.GetByIdAsync(id);
 
             if (review == null)
                 return NotFound();
@@ -42,6 +45,13 @@ namespace FilmAPI.Controllers
             return Ok(review.ToReviewDTO());
         }
 
-        
+        [HttpPost("{filmId}")]
+        public async Task<IActionResult> Create([FromRoute] int filmId, CreateReviewDTO reviewDTO)
+        {
+            if (!await _filmRepo.Check(filmId))
+                return BadRequest("Film does'nt exist");
+
+            var review = reviewDTO
+        }
     }
 }

@@ -26,9 +26,9 @@ namespace FilmAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             var films = await _repo.GetAllAsync();
-            var filmDTO = films.Select(f => f.ToFilmDTO());
+            var filmDTOs = films.Select(f => f.ToFilmDTO());
 
-            return Ok(films);
+            return Ok(filmDTOs);
         }
 
         [HttpGet("{id}")]
@@ -44,7 +44,7 @@ namespace FilmAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateFilmRequestDTO filmDTO)
         {
-            var filmModel = filmDTO.ToFilmFromCreateDTO();
+            var filmModel = filmDTO.ToFilmFromCreate();
 
             await _repo.CreateAsync(filmModel);
 

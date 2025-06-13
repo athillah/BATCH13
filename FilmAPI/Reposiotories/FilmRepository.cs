@@ -36,22 +36,24 @@ namespace FilmAPI.Reposiotories
                 return null;
 
             _context.Films.Remove(filmModel);
-            await _context.SaveChangesAsync();
+            await _context
+                .SaveChangesAsync();
 
             return filmModel;
         }
 
         public async Task<List<Film>> GetAllAsync()
         {
-            return await _context.Films.Include(
-                r => r.Reviews).ToListAsync();
+            return await _context.Films
+                .Include(f => f.Reviews)
+                .ToListAsync();
         }
 
         public async Task<Film?> GetByIdAsync(int id)
         {
-            return await _context.Films.Include(
-                r => r.Reviews).FirstOrDefaultAsync(
-                    i => i.Id == id);
+            return await _context.Films
+                .Include(f => f.Reviews)
+                .FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<Film?> UpdateAsync(int id, UpdateFilmRequestDTO filmDTO)
@@ -72,6 +74,12 @@ namespace FilmAPI.Reposiotories
             await _context.SaveChangesAsync();
 
             return filmModel;
+        }
+
+        public Task<bool> Check(int id)
+        {
+            return _context.Films.AnyAsync(
+                f => f.Id == id);
         }
     }
 }

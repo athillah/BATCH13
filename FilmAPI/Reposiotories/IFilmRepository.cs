@@ -14,5 +14,6 @@ namespace FilmAPI.Reposiotories
         Task<Film> CreateAsync(Film filmModel);
         Task<Film?> UpdateAsync(int i, UpdateFilmRequestDTO filmDTO);
         Task<Film> DeleteAsync(int id);
+        Task<bool> Check(int id);
     }
 }

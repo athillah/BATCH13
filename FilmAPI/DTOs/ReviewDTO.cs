@@ -15,4 +15,20 @@ namespace FilmAPI.DTOs
 
         public int FilmId { get; set; }
     }
+
+    public class ReviewOnFilmDTO
+    {
+        public int Id { get; set; }
+        public string Content { get; set; } = string.Empty;
+        public float? Rate { get; set; } = null;
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+    }
+
+    public class CreateReviewDTO
+    {
+        public int Id { get; set; }
+        public string Content { get; set; } = string.Empty;
+        public float? Rate { get; set; } = null;
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+    }
 }
