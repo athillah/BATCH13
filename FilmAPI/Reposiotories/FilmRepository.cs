@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 using FilmAPI.Models;
 using FilmAPI.Data;
 using Microsoft.EntityFrameworkCore;
@@ -11,13 +12,13 @@ namespace FilmAPI.Reposiotories
 {
     public interface IFilmRepository
     {
+        Task<bool> Check(int id);
         Task<List<Film>> GetAllAsync();
         Task<Film?> GetByIdAsync(int id);
+        Task<Film?> DeleteAsync(int id);
         Task<Film> CreateAsync(CreateFilmDTO filmDTO);
         Task<Film?> UpdateAsync(int id, UpdateFilmDTO filmDTO);
-
-        Task<Film?> DeleteAsync(int id);
-        Task<bool> Check(int id);
+        Task<bool> AnyAsync(Expression<Func<Film, bool>> predicate, CancellationToken ct = default);
     }
 
     public class FilmRepository : IFilmRepository
@@ -87,6 +88,11 @@ namespace FilmAPI.Reposiotories
         public Task<bool> Check(int id)
         {
             return _context.Films.AnyAsync(f => f.Id == id);
+        }
+
+        public Task<bool> AnyAsync(Expression<Func<Film, bool>> predicate, CancellationToken ct = default)
+        {
+            return _context.Films.AnyAsync(predicate, ct);
         }
     }
 }

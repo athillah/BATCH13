@@ -136,7 +136,7 @@ namespace FilmAPI.Controllers
                     Id = appUser.Id,
                     Email = appUser.Email ?? "",
                     FirstName = appUser.FirstName,
-                    LastName = appUser.LastName,
+                    LastName = appUser.LastName ?? "",
                     CreatedAt = appUser.CreatedAt,
                     Roles = roles.ToList()
                 });
@@ -165,7 +165,7 @@ namespace FilmAPI.Controllers
                         Id = User.Id,
                         Email = User.Email ?? "",
                         FirstName = User.FirstName,
-                        LastName = User.LastName,
+                        LastName = User.LastName ?? "",
                         CreatedAt = User.CreatedAt,
                         Roles = roles.ToList()
                     });

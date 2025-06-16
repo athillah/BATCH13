@@ -9,12 +9,23 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FilmAPI.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers();
+
+builder.Services.AddValidatorsFromAssemblyContaining<FilmValidator>();
+
+builder.Services
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters(); // optional for MVC or minimal APIs
+    
 builder.Services.AddEndpointsApiExplorer();
 
 // Configure Swagger with JWT support
@@ -102,6 +113,7 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero
     };
 });
+
 
 // Register custom services
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();

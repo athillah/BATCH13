@@ -13,7 +13,7 @@ namespace FilmAPI.Models
         public string FirstName { get; set; } = string.Empty;
 
         [Required, StringLength(20)]
-        public string LastName { get; set; } = string.Empty;
+        public string? LastName { get; set; } = string.Empty;
 
         [Required]
         [StringLength(40)]

@@ -172,6 +172,9 @@ C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.Dep
 C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\Azure.Core.dll
 C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\Azure.Identity.dll
 C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\FluentValidation.dll
+C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\Humanizer.dll
 C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Athillah\BATCH13\FilmAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll

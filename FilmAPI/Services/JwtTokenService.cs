@@ -35,7 +35,7 @@ namespace FilmAPI.Services
                 new(ClaimTypes.Email, user.Email ?? ""),
                 new(ClaimTypes.Name, user.UserName ?? ""),
                 new("firstName", user.FirstName),
-                new("lastName", user.LastName),
+                new("lastName", user.LastName ?? ""),
                 new("fullName", user.FullName)
             };
 
