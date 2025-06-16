@@ -51,7 +51,8 @@ namespace FilmAPI.Controllers
             if (!await _filmRepo.Check(filmId))
                 return BadRequest("Film does'nt exist");
 
-            var review = reviewDTO
+            var review = reviewDTO.ToReviewFromCreate(filmId);
+            await _reviewRepo.CreateAsync(review);
         }
     }
 }

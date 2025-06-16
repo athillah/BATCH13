@@ -13,5 +13,6 @@ namespace FilmAPI.Models
         public string? Director { get; set; } = string.Empty;
 
         public List<Review> Reviews { get; set; } = new List<Review>();
+        public List<User> LikedByUsers { get; set; } = new List<User>();
     }
 }
