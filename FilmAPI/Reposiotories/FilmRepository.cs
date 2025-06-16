@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,40 +5,52 @@ using FilmAPI.Models;
 using FilmAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using FilmAPI.DTOs;
-
+using AutoMapper;
 
 namespace FilmAPI.Reposiotories
 {
+    public interface IFilmRepository
+    {
+        Task<List<Film>> GetAllAsync();
+        Task<Film?> GetByIdAsync(int id);
+        Task<Film> CreateAsync(CreateFilmDTO filmDTO);
+        Task<Film?> UpdateAsync(int id, UpdateFilmDTO filmDTO);
+
+        Task<Film?> DeleteAsync(int id);
+        Task<bool> Check(int id);
+    }
+
     public class FilmRepository : IFilmRepository
     {
-        private AppDBContext _context;
+        private readonly AppDBContext _context;
+        private readonly IMapper _mapper;
 
-        public FilmRepository(AppDBContext context)
+        public FilmRepository(AppDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<Film> CreateAsync(Film filmModel)
+        public async Task<Film> CreateAsync(CreateFilmDTO filmDTO)
         {
-            await _context.Films.AddAsync(filmModel);
+            var film = _mapper.Map<Film>(filmDTO);
+            await _context.Films.AddAsync(film);
             await _context.SaveChangesAsync();
 
-            return filmModel;
+            return film;
         }
 
-        public async Task<Film> DeleteAsync(int id)
+        public async Task<Film?> DeleteAsync(int id)
         {
-            var filmModel = await _context.Films.FirstOrDefaultAsync(
-                f => f.Id == id);
+            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
 
-            if (filmModel == null)
+            if (film == null)
                 return null;
 
-            _context.Films.Remove(filmModel);
-            await _context
-                .SaveChangesAsync();
+            _context.Films.Remove(film);
+            await _context.SaveChangesAsync();
 
-            return filmModel;
+            return film;
         }
 
         public async Task<List<Film>> GetAllAsync()
@@ -53,33 +64,29 @@ namespace FilmAPI.Reposiotories
         {
             return await _context.Films
                 .Include(f => f.Reviews)
-                .FirstOrDefaultAsync(i => i.Id == id);
+                .FirstOrDefaultAsync(f => f.Id == id);
         }
 
-        public async Task<Film?> UpdateAsync(int id, UpdateFilmRequestDTO filmDTO)
+        public async Task<Film?> UpdateAsync(int id, UpdateFilmDTO filmDTO)
         {
-            var filmModel = await _context.Films.FirstOrDefaultAsync(
-                f => f.Id == id);
+            var film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
 
-            if (filmModel == null)
+            if (film == null)
                 return null;
 
-            filmModel.Title = filmDTO.Title
-                           ?? filmModel.Title;
-            filmModel.Year = filmDTO.Year
-                          ?? filmModel.Year;
-            filmModel.Director = filmDTO.Director
-                              ?? filmModel.Director;
+            // Apply partial updates
+            film.Title = filmDTO.Title ?? film.Title;
+            film.Year = filmDTO.Year ?? film.Year;
+            film.Director = filmDTO.Director ?? film.Director;
 
             await _context.SaveChangesAsync();
 
-            return filmModel;
+            return film;
         }
 
         public Task<bool> Check(int id)
         {
-            return _context.Films.AnyAsync(
-                f => f.Id == id);
+            return _context.Films.AnyAsync(f => f.Id == id);
         }
     }
 }

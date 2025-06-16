@@ -9,20 +9,18 @@ namespace FilmAPI.Models
 {
     public class User : IdentityUser
     {
-        [Required]
-        [StringLength(20)]
+        [Required, StringLength(20)]
         public string FirstName { get; set; } = string.Empty;
 
-        [Required]
-        [StringLength(20)]
+        [Required, StringLength(20)]
         public string LastName { get; set; } = string.Empty;
 
         [Required]
         [StringLength(40)]
-        public string UserName { get; set; } = string.Empty;
+        public override string? UserName { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public string FullName => $"{FirstName} {LastName}";
+        public string FullName => $"{FirstName} {LastName}".Trim();
 
         public List<Film>? FavoriteFilms { get; set; } = new List<Film>();
         public List<Review>? Reviews { get; set; } = new List<Review>();

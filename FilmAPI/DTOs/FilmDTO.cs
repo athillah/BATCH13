@@ -13,13 +13,13 @@ namespace FilmAPI.DTOs
         public string? Director { get; set; } = string.Empty;
         public List<ReviewOnFilmDTO> Reviews { get; set; } = new();
     }
-    public class CreateFilmRequestDTO
+    public class CreateFilmDTO
     {
         public int? Year { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? Director { get; set; } = string.Empty;
     }
-    public class UpdateFilmRequestDTO
+    public class UpdateFilmDTO
     {
         public int? Year { get; set; }
         public string? Title { get; set; } = string.Empty;

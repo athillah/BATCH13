@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FilmAPI.Data;
@@ -8,22 +6,39 @@ using FilmAPI.Models;
 
 namespace FilmAPI.Reposiotories
 {
+    public interface IReviewRepository
+    {
+        Task<Review> CreateAsync(Review reviewModel);
+        Task<Review?> GetByIdAsync(int id);
+        Task<List<Review>> GetAllAsync();
+        Task<Review?> DeleteAsync(int id);
+    }
+
     public class ReviewRepository : IReviewRepository
     {
-        private AppDBContext _context;
+        private readonly AppDBContext _context;
+
         public ReviewRepository(AppDBContext context)
         {
             _context = context;
         }
 
-        public Task<Review> CreateAsync(Review ReviewModel)
+        public async Task<Review> CreateAsync(Review reviewModel)
         {
-            throw new NotImplementedException();
+            await _context.Reviews.AddAsync(reviewModel);
+            await _context.SaveChangesAsync();
+            return reviewModel;
         }
 
-        public Task<Review> DeleteAsync(int id)
+        public async Task<Review?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var review = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
+            if (review == null)
+                return null;
+
+            _context.Reviews.Remove(review);
+            await _context.SaveChangesAsync();
+            return review;
         }
 
         public async Task<List<Review>> GetAllAsync()
@@ -35,10 +50,5 @@ namespace FilmAPI.Reposiotories
         {
             return await _context.Reviews.FindAsync(id);
         }
-
-        // public Task<Review?> UpdateAsync(int i, UpdateReviewRequestDTO ReviewDTO)
-        // {
-        //     throw new NotImplementedException();
-        // }
     }
 }

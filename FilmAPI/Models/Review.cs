@@ -14,8 +14,11 @@ namespace FilmAPI.Models
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         public int FilmId { get; set; }
-        
         [JsonIgnore]
         public Film? Film { get; set; }
+
+        public int UserId { get; set; }
+        [JsonIgnore]
+        public User? User { get; set; }
     }
 }
