@@ -47,12 +47,14 @@ namespace FilmAPI.Reposiotories
 
         public async Task<List<Review>> GetAllAsync()
         {
-            return await _context.Reviews.ToListAsync();
+            var reviews = await _context.Reviews.ToListAsync();
+            return reviews;
         }
 
         public async Task<Review?> GetByIdAsync(int id)
         {
-            return await _context.Reviews.FindAsync(id);
+            var review = await _context.Reviews.FindAsync(id);
+            return review;
         }
 
         public async Task<Review?> UpdateAsync(int id, UpdateReviewDTO DTO)

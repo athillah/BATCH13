@@ -57,18 +57,23 @@ namespace FilmAPI.Reposiotories
 
         public async Task<List<Film>> GetAllAsync()
         {
-            return await _context.Films
+            var films = await  _context.Films
                 .Include(f => f.LikedByUsers)
                 .Include(f => f.Reviews)
                 .ToListAsync();
+
+
+            return films;
         }
 
         public async Task<Film?> GetByIdAsync(int id)
         {
-            return await _context.Films
+            var film = await  _context.Films
                 .Include(f => f.LikedByUsers)
                 .Include(f => f.Reviews)
                 .FirstOrDefaultAsync(f => f.Id == id);
+
+            return film;
         }
 
         public async Task<Film?> UpdateAsync(int id, UpdateFilmDTO filmDTO)
@@ -88,14 +93,18 @@ namespace FilmAPI.Reposiotories
             return film;
         }
 
-        public Task<bool> Check(int id)
+        public async Task<bool> Check(int id)
         {
-            return _context.Films.AnyAsync(f => f.Id == id);
+            bool isThere = await _context.Films.AnyAsync(f => f.Id == id);
+
+            return isThere;
         }
 
-        public Task<bool> AnyAsync(Expression<Func<Film, bool>> predicate, CancellationToken ct = default)
+        public async Task<bool> AnyAsync(Expression<Func<Film, bool>> predicate, CancellationToken ct = default)
         {
-            return _context.Films.AnyAsync(predicate, ct);
+            bool isThere = await _context.Films.AnyAsync(predicate, ct);
+
+            return isThere;
         }
 
         public async Task<Film?> UpdateLikeAsync(Film film)
