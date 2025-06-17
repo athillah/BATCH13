@@ -17,7 +17,7 @@ namespace FilmAPI.Models
         [JsonIgnore]
         public Film? Film { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         [JsonIgnore]
         public User? User { get; set; }
     }

@@ -12,31 +12,48 @@ namespace FilmAPI.Mappers
     {
         public MappingProfiles()
         {
-            // <FILM>
-            // Film → FilmDTO
-            CreateMap<Film, FilmDTO>();
+            // MODEL
+            CreateMap<Film, FilmDTO>()
+                // Likes property uses int; set it from the count of users who liked the film
+                .ForMember(dest => dest.Likes,
+                           opt => opt.MapFrom(src => src.LikedByUsers.Count))
+                // Map list of user IDs from users who liked the film
+                .ForMember(dest => dest.LikedByUsers,
+                           opt => opt.MapFrom(src => src.LikedByUsers.Select(u => u.Id)))
+                // Map reviews collection
+                .ForMember(dest => dest.Reviews,
+                           opt => opt.MapFrom(src => src.Reviews));
 
-            // Review → ReviewOnFilmDTO
             CreateMap<Review, ReviewOnFilmDTO>();
 
-            // CreateFilmDTO → Film
+
             CreateMap<CreateFilmDTO, Film>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore()) // Ensure ID is not mapped
                 .ForMember(dest => dest.Reviews, opt => opt.Ignore())
                 .ForMember(dest => dest.LikedByUsers, opt => opt.Ignore());
 
 
-            // <REVIEW>
-            // Review ↔ DTO
+            // REVIEW
+            // Entity → DTO
             CreateMap<Review, ReviewDTO>();
-            CreateMap<Review, ReviewOnFilmDTO>();
 
-            // CreateReviewDTO → Review
+            CreateMap<Review, ReviewOnFilmDTO>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(
+                    src => src.UserId));
+
+            CreateMap<Review, ReviewOnUserDTO>()
+                .ForMember(dest => dest.FilmId, opt => opt.MapFrom(
+                    src => src.FilmId));
+
+            // DTO → Entity
             CreateMap<CreateReviewDTO, Review>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.FilmId, opt => opt.Ignore()) // you still need to set this manually
-                .ForMember(dest => dest.UserId, opt => opt.Ignore()) // unless handled from auth context
-                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => DateTime.UtcNow));
+                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(
+                    src => src.CreatedOn));
+
+            CreateMap<UpdateReviewDTO, Review>()
+                .ForAllMembers(opt => opt.Condition((
+                    src, dest, srcMember) => srcMember != null));
+            // only map non-null values
         }
     }
 }

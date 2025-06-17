@@ -18,6 +18,7 @@ namespace FilmAPI.Reposiotories
         Task<Film?> DeleteAsync(int id);
         Task<Film> CreateAsync(CreateFilmDTO filmDTO);
         Task<Film?> UpdateAsync(int id, UpdateFilmDTO filmDTO);
+        Task<Film?> UpdateLikeAsync(Film film);
         Task<bool> AnyAsync(Expression<Func<Film, bool>> predicate, CancellationToken ct = default);
     }
 
@@ -57,6 +58,7 @@ namespace FilmAPI.Reposiotories
         public async Task<List<Film>> GetAllAsync()
         {
             return await _context.Films
+                .Include(f => f.LikedByUsers)
                 .Include(f => f.Reviews)
                 .ToListAsync();
         }
@@ -64,6 +66,7 @@ namespace FilmAPI.Reposiotories
         public async Task<Film?> GetByIdAsync(int id)
         {
             return await _context.Films
+                .Include(f => f.LikedByUsers)
                 .Include(f => f.Reviews)
                 .FirstOrDefaultAsync(f => f.Id == id);
         }
@@ -93,6 +96,14 @@ namespace FilmAPI.Reposiotories
         public Task<bool> AnyAsync(Expression<Func<Film, bool>> predicate, CancellationToken ct = default)
         {
             return _context.Films.AnyAsync(predicate, ct);
+        }
+
+        public async Task<Film?> UpdateLikeAsync(Film film)
+        {
+            _context.Films.Update(film);
+            await _context.SaveChangesAsync();
+
+            return film;
         }
     }
 }

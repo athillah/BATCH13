@@ -12,6 +12,7 @@ using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using FilmAPI.Validators;
+using FilmAPI.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +21,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllers();
 
-builder.Services.AddValidatorsFromAssemblyContaining<FilmValidator>();
+builder.Services.AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<FilmValidator>();
 
-builder.Services
-    .AddFluentValidationAutoValidation()
-    .AddFluentValidationClientsideAdapters(); // optional for MVC or minimal APIs
+// builder.Services.AddTransient<IValidator<CreateFilmDTO>, FilmValidator>();
+
     
 builder.Services.AddEndpointsApiExplorer();
 

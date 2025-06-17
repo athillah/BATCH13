@@ -17,9 +17,17 @@ namespace FilmAPI.Data
         public DbSet<Film> Films { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
-                protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Film>()
+                .HasMany(f => f.LikedByUsers)
+                .WithMany(u => u.LikedFilms)
+                .UsingEntity<Dictionary<string, object>>(  // or custom join entity
+                    "FilmLikes",                           // join table name
+                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId"),
+                    j => j.HasOne<Film>().WithMany().HasForeignKey("FilmId"));
 
             // Seed default roles
             var adminRoleId = Guid.NewGuid().ToString();
